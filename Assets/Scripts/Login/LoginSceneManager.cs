@@ -1,4 +1,5 @@
-﻿using MessagePack;
+﻿using APIServer;
+using MessagePack;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -26,7 +27,7 @@ public class LoginSceneManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+      
     }
 
     // Update is called once per frame
@@ -47,14 +48,21 @@ public class LoginSceneManager : MonoBehaviour
             NewInfo("아이디와 비밀번호를 입력해야 합니다.");
             return;
         }
+        string tokenValue = GameManager.ClientNetworkManager.LoginConfirm(userID, userPW);
+        if (tokenValue !="101") SendLogin(userID, tokenValue);
+        else NewInfo("아이디와 비밀번호를 확인해주세요.");
 
-        SendLogin(userID, userPW);
         //SceneManager.LoadScene(Common.LobbySceneName);
     }
 
     public void ClickSignup()
     {
         SignupPanel.SetActive(true);
+        var userID = SignupIDInputField.text;
+        var userPW = SignupPWInputField.text;
+
+
+
     }
 
     public void ClickSignupOk()
@@ -102,9 +110,9 @@ public class LoginSceneManager : MonoBehaviour
         InfoPanel.SetActive(true);
     }
 
-    public void SendLogin(string userID, string userPW)
+    public void SendLogin(string userID, string tokenValue)
     {
-        var request = new GatewayServer.PKTReqLogin() { UserID = userID, AuthToken = userPW };
+        var request = new GatewayServer.PKTReqLogin() { UserID = userID, AuthToken = tokenValue };
 
         var body = MessagePackSerializer.Serialize(request);
         var sendPacket = PacketDef.PKTHandleHelper.MakePacket((UInt16)GatewayServer.ClientGatePacketID.ReqLogin, body);

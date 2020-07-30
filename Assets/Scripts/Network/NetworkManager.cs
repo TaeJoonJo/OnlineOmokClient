@@ -7,10 +7,13 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using UnityEngine;
+using APIServer;
+using Grpc.Core;
 
 public class NetworkManager
 {
     public const int MTUSize = 1000;
+    public  APIFunction.APIFunctionClient APIConnection;
 
     Socket Socket;
 
@@ -42,6 +45,20 @@ public class NetworkManager
         PacketBufferManager.Init(MTUSize * 8, 5, MTUSize);
 
         NetworkThread = new Thread(NetworkProcess);
+        initGrpc();
+    }
+
+    public void initGrpc()
+    {
+        var channel = new Channel("127.0.0.1:5001", ChannelCredentials.Insecure);
+        APIConnection = new APIFunction.APIFunctionClient(channel);
+    }
+
+    public string LoginConfirm(string id, string pw)
+    {
+        var reply = APIConnection.Login(new User { Id = id, Password = pw });
+        return reply.Message;
+        
     }
 
     public bool Connect(string ip, int port)
