@@ -47,4 +47,18 @@ public class PacketDef
         }
     }
 
+
+    #region Client-GatewayServer
+
+    // Client - GatewayServer PacketID 정의 
+    // 101 ~ 500
+    public enum ClientGatePacketID : UInt16
+    {
+        ReqLogin = 101,
+        ResLogin = 102,
+
+
+    }
+
+    #endregion
 }

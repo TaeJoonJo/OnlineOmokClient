@@ -6,14 +6,30 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public delegate void PacketFunc(object data);
+
+    public static PacketFunc RecvLoginResult;
+
     public static NetworkManager ClientNetworkManager;
+
+    public GameManager()
+    {
+        //DontDestroyOnLoad(gameObject);
+
+        //Initalize();
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        //StaticCompositeResolver.Register(new IFormatterResolver[] { MessagePack.Resolvers.Gen });
-        InitMsgPack();
+        DontDestroyOnLoad(gameObject);
 
+        Initalize();
+    }
+
+    public void Initalize()
+    {
+        InitMsgPack();
 
         ClientNetworkManager = new NetworkManager();
 
@@ -33,12 +49,17 @@ public class GameManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
         if (ClientNetworkManager.IsConnected)
         {
             DispatchPacket();
         }
+    }
+
+    void OnApplicationQuit()
+    {
+        ClientNetworkManager.Disconnect();
     }
 
     void OnDestroy()
@@ -52,12 +73,14 @@ public class GameManager : MonoBehaviour
 
         while(ClientNetworkManager.GetPacket(out packetData) == true)
         {
-            switch ((GatewayServer.ClientGatePacketID)packetData.PacketHeader.PacketID)
+            switch ((PacketDef.ClientGatePacketID)packetData.PacketHeader.PacketID)
             {
-                case GatewayServer.ClientGatePacketID.ResLogin:
+                case PacketDef.ClientGatePacketID.ResLogin:
                     {
+                        Debug.Log("Recv ResLogin");
                         var packet = MessagePackSerializer.Deserialize<GatewayServer.PKTResLogin>(packetData.PacketBody);
-                        SendMessage("RecvLoginResult", packet.Result);
+                        
+                        RecvLoginResult(packet.Result);
                     } break;
             }
         }
