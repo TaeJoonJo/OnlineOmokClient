@@ -60,6 +60,20 @@ public class NetworkManager
         return reply.Message;
         
     }
+    public int CreateAccountConfirm(string id, string pw, string nickName, int sex, int age)
+    {
+        var reply = APIConnection.CreateAccount(new User
+        {
+            Id = id,
+            Password = pw,
+            Nickname = nickName,
+            Sex = sex,
+            Age = age
+        });
+
+        if (reply.Message == 0) return 0; //성공
+        else return 1; //실패
+    }
 
     public bool Connect(string ip, int port)
     {

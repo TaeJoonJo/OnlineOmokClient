@@ -49,11 +49,9 @@ public class LoginSceneManager : MonoBehaviour
             return;
         }
 
-        GameManager.ClientNetworkManager.Connect("127.0.0.1", 32452);
-        SendLogin(userID, userPW);
-        return;
 
         string tokenValue = GameManager.ClientNetworkManager.LoginConfirm(userID, userPW);
+
         if (tokenValue != "101")
         {
             GameManager.ClientNetworkManager.Connect("127.0.0.1", 32452);
@@ -88,8 +86,25 @@ public class LoginSceneManager : MonoBehaviour
             return;
         }
 
-        var userGender = SignupGenderDropdown.itemText.text;
-        var userAge = SignupAgeDropdown.itemText.text;
+        int userGender = 0;
+        int userAge = 0;
+        string inputAge = SignupAgeDropdown.options[SignupAgeDropdown.value].text.Substring(0, 2);
+        string inputGender = SignupGenderDropdown.options[SignupGenderDropdown.value].text;
+
+        if (inputGender == "남자") userGender = 1;
+        else userGender = 2;
+
+        if (inputAge == "10") userAge = 1;
+        else if(inputAge == "20") userAge = 2;
+        else if(inputAge == "30") userAge = 3;
+        else if(inputAge == "40") userAge = 4;
+        
+
+        //var userAge = Convert.ToInt32(SignupAgeDropdown.itemText.text.Substring(0, 2));
+
+        int resultCreateAccount = GameManager.ClientNetworkManager.CreateAccountConfirm(userID, userPW, userNickName, userGender, userAge);
+        if (resultCreateAccount == 0) NewInfo("회원가입이 완료되었습니다.");
+        else NewInfo("아이디와 닉네임을 확인해주세요");
 
         SignupIDInputField.text = "";
         SignupPWInputField.text = "";

@@ -27,17 +27,19 @@ namespace APIServer {
             "ChRQcm90b3MvQVBJRnVuYy5wcm90bxIHQVBJRnVuYyIHCgVFbXB0eSIVCgdB",
             "Y2NvdW50EgoKAmlkGAEgASgJIlAKBFVzZXISCgoCaWQYASABKAkSEAoIcGFz",
             "c3dvcmQYAiABKAkSEAoIbmlja25hbWUYAyABKAkSCwoDc2V4GAQgASgFEgsK",
-            "A2FnZRgFIAEoBSIaCgdDb25maXJtEg8KB21lc3NhZ2UYASABKAkymwEKC0FQ",
-            "SUZ1bmN0aW9uEjAKDUNyZWF0ZUFjY291bnQSDS5BUElGdW5jLlVzZXIaEC5B",
-            "UElGdW5jLkNvbmZpcm0SKAoFTG9naW4SDS5BUElGdW5jLlVzZXIaEC5BUElG",
-            "dW5jLkNvbmZpcm0SMAoKQXR0ZW5kYW5jZRIQLkFQSUZ1bmMuQWNjb3VudBoQ",
-            "LkFQSUZ1bmMuQ29uZmlybUIMqgIJQVBJU2VydmVyYgZwcm90bzM="));
+            "A2FnZRgFIAEoBSIfCgxMb2dpbkNvbmZpcm0SDwoHbWVzc2FnZRgBIAEoCSIa",
+            "CgdDb25maXJtEg8KB21lc3NhZ2UYASABKAUyoAEKC0FQSUZ1bmN0aW9uEjAK",
+            "DUNyZWF0ZUFjY291bnQSDS5BUElGdW5jLlVzZXIaEC5BUElGdW5jLkNvbmZp",
+            "cm0SLQoFTG9naW4SDS5BUElGdW5jLlVzZXIaFS5BUElGdW5jLkxvZ2luQ29u",
+            "ZmlybRIwCgpBdHRlbmRhbmNlEhAuQVBJRnVuYy5BY2NvdW50GhAuQVBJRnVu",
+            "Yy5Db25maXJtQgyqAglBUElTZXJ2ZXJiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::APIServer.Empty), global::APIServer.Empty.Parser, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::APIServer.Account), global::APIServer.Account.Parser, new[]{ "Id" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::APIServer.User), global::APIServer.User.Parser, new[]{ "Id", "Password", "Nickname", "Sex", "Age" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::APIServer.LoginConfirm), global::APIServer.LoginConfirm.Parser, new[]{ "Message" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::APIServer.Confirm), global::APIServer.Confirm.Parser, new[]{ "Message" }, null, null, null)
           }));
     }
@@ -516,11 +518,11 @@ namespace APIServer {
 
   }
 
-  public sealed partial class Confirm : pb::IMessage<Confirm> {
-    private static readonly pb::MessageParser<Confirm> _parser = new pb::MessageParser<Confirm>(() => new Confirm());
+  public sealed partial class LoginConfirm : pb::IMessage<LoginConfirm> {
+    private static readonly pb::MessageParser<LoginConfirm> _parser = new pb::MessageParser<LoginConfirm>(() => new LoginConfirm());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<Confirm> Parser { get { return _parser; } }
+    public static pb::MessageParser<LoginConfirm> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
@@ -533,30 +535,26 @@ namespace APIServer {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public Confirm() {
+    public LoginConfirm() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public Confirm(Confirm other) : this() {
+    public LoginConfirm(LoginConfirm other) : this() {
       message_ = other.message_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public Confirm Clone() {
-      return new Confirm(this);
+    public LoginConfirm Clone() {
+      return new LoginConfirm(this);
     }
 
     /// <summary>Field number for the "message" field.</summary>
     public const int MessageFieldNumber = 1;
     private string message_ = "";
-    /// <summary>
-    ///
-    ///1: seccess 2. wrong id 3. wrong password 4, wrong nickname
-    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string Message {
       get { return message_; }
@@ -567,11 +565,11 @@ namespace APIServer {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
-      return Equals(other as Confirm);
+      return Equals(other as LoginConfirm);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(Confirm other) {
+    public bool Equals(LoginConfirm other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -621,7 +619,7 @@ namespace APIServer {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(Confirm other) {
+    public void MergeFrom(LoginConfirm other) {
       if (other == null) {
         return;
       }
@@ -641,6 +639,135 @@ namespace APIServer {
             break;
           case 10: {
             Message = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class Confirm : pb::IMessage<Confirm> {
+    private static readonly pb::MessageParser<Confirm> _parser = new pb::MessageParser<Confirm>(() => new Confirm());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<Confirm> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::APIServer.APIFuncReflection.Descriptor.MessageTypes[4]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public Confirm() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public Confirm(Confirm other) : this() {
+      message_ = other.message_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public Confirm Clone() {
+      return new Confirm(this);
+    }
+
+    /// <summary>Field number for the "message" field.</summary>
+    public const int MessageFieldNumber = 1;
+    private int message_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int Message {
+      get { return message_; }
+      set {
+        message_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as Confirm);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(Confirm other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Message != other.Message) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Message != 0) hash ^= Message.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (Message != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(Message);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (Message != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Message);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(Confirm other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Message != 0) {
+        Message = other.Message;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            Message = input.ReadInt32();
             break;
           }
         }

@@ -14,6 +14,7 @@ namespace APIServer {
 
     static readonly grpc::Marshaller<global::APIServer.User> __Marshaller_APIFunc_User = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::APIServer.User.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::APIServer.Confirm> __Marshaller_APIFunc_Confirm = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::APIServer.Confirm.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::APIServer.LoginConfirm> __Marshaller_APIFunc_LoginConfirm = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::APIServer.LoginConfirm.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::APIServer.Account> __Marshaller_APIFunc_Account = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::APIServer.Account.Parser.ParseFrom);
 
     static readonly grpc::Method<global::APIServer.User, global::APIServer.Confirm> __Method_CreateAccount = new grpc::Method<global::APIServer.User, global::APIServer.Confirm>(
@@ -23,12 +24,12 @@ namespace APIServer {
         __Marshaller_APIFunc_User,
         __Marshaller_APIFunc_Confirm);
 
-    static readonly grpc::Method<global::APIServer.User, global::APIServer.Confirm> __Method_Login = new grpc::Method<global::APIServer.User, global::APIServer.Confirm>(
+    static readonly grpc::Method<global::APIServer.User, global::APIServer.LoginConfirm> __Method_Login = new grpc::Method<global::APIServer.User, global::APIServer.LoginConfirm>(
         grpc::MethodType.Unary,
         __ServiceName,
         "Login",
         __Marshaller_APIFunc_User,
-        __Marshaller_APIFunc_Confirm);
+        __Marshaller_APIFunc_LoginConfirm);
 
     static readonly grpc::Method<global::APIServer.Account, global::APIServer.Confirm> __Method_Attendance = new grpc::Method<global::APIServer.Account, global::APIServer.Confirm>(
         grpc::MethodType.Unary,
@@ -82,19 +83,19 @@ namespace APIServer {
       {
         return CallInvoker.AsyncUnaryCall(__Method_CreateAccount, null, options, request);
       }
-      public virtual global::APIServer.Confirm Login(global::APIServer.User request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual global::APIServer.LoginConfirm Login(global::APIServer.User request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return Login(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
-      public virtual global::APIServer.Confirm Login(global::APIServer.User request, grpc::CallOptions options)
+      public virtual global::APIServer.LoginConfirm Login(global::APIServer.User request, grpc::CallOptions options)
       {
         return CallInvoker.BlockingUnaryCall(__Method_Login, null, options, request);
       }
-      public virtual grpc::AsyncUnaryCall<global::APIServer.Confirm> LoginAsync(global::APIServer.User request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual grpc::AsyncUnaryCall<global::APIServer.LoginConfirm> LoginAsync(global::APIServer.User request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return LoginAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
-      public virtual grpc::AsyncUnaryCall<global::APIServer.Confirm> LoginAsync(global::APIServer.User request, grpc::CallOptions options)
+      public virtual grpc::AsyncUnaryCall<global::APIServer.LoginConfirm> LoginAsync(global::APIServer.User request, grpc::CallOptions options)
       {
         return CallInvoker.AsyncUnaryCall(__Method_Login, null, options, request);
       }
