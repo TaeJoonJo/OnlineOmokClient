@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     public static PacketFunc RecvLoginResult;
 
     public static NetworkManager ClientNetworkManager;
-
+    public bool isInitialized;
     public GameManager()
     {
         //DontDestroyOnLoad(gameObject);
@@ -23,8 +23,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         DontDestroyOnLoad(gameObject);
-
-        Initalize();
+        if(!isInitialized) Initalize();
+        
     }
 
     public void Initalize()
@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
         ClientNetworkManager = new NetworkManager();
 
         ClientNetworkManager.Initalize();
+        isInitialized = true;
     }
 
     static void InitMsgPack()

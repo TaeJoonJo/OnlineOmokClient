@@ -51,8 +51,8 @@ public class LoginSceneManager : MonoBehaviour
 
 
         string tokenValue = GameManager.ClientNetworkManager.LoginConfirm(userID, userPW);
-
-        if (tokenValue != "101")
+        Debug.Log(tokenValue);
+        if (tokenValue != "102")
         {
             GameManager.ClientNetworkManager.Connect("127.0.0.1", 32452);
             SendLogin(userID, tokenValue);
@@ -62,7 +62,7 @@ public class LoginSceneManager : MonoBehaviour
             NewInfo("아이디와 비밀번호를 확인해주세요.");
         }
 
-        //SceneManager.LoadScene(Common.LobbySceneName);
+        
     }
 
     public void ClickSignup()
@@ -103,6 +103,7 @@ public class LoginSceneManager : MonoBehaviour
         //var userAge = Convert.ToInt32(SignupAgeDropdown.itemText.text.Substring(0, 2));
 
         int resultCreateAccount = GameManager.ClientNetworkManager.CreateAccountConfirm(userID, userPW, userNickName, userGender, userAge);
+        Debug.Log(resultCreateAccount);
         if (resultCreateAccount == 0) NewInfo("회원가입이 완료되었습니다.");
         else NewInfo("아이디와 닉네임을 확인해주세요");
 
@@ -146,16 +147,20 @@ public class LoginSceneManager : MonoBehaviour
 
     public void SendLogin(string userID, string tokenValue)
     {
+
+        Debug.Log("SendLogin");
         var request = new GatewayServer.PKTReqLogin() { UserID = userID, AuthToken = tokenValue };
 
         var body = MessagePackSerializer.Serialize(request);
         var sendPacket = PacketDef.PKTHandleHelper.MakePacket((UInt16)PacketDef.ClientGatePacketID.ReqLogin, body);
 
+        Debug.Log("SendLogin에서 보냅니다");
         GameManager.ClientNetworkManager.Send(sendPacket);
     }
 
     public void RecvLoginResult(object data)
     {
+        Debug.Log("RecvLoginResult");
         var result = (UInt16)data;
         Debug.Log("loginresult : " + result);
 
@@ -164,7 +169,8 @@ public class LoginSceneManager : MonoBehaviour
             NewInfo("로그인 실패!");
             return;
         }
-
+        Debug.Log("RecvLoginResult에서 로그인 성공" + IDInputField.text);
+        GameManager.ClientNetworkManager.connectedId = IDInputField.text;
         SceneManager.LoadScene(Common.LobbySceneName);
     }
 

@@ -55,14 +55,12 @@ public class LobbySceneManager : MonoBehaviour
     public void ClickMenuDisconnectButton()
     {
         // TODO : 서버에 접속종료 요청
-
-
         SceneManager.LoadScene(Common.LoginSceneName);
     }
 
     public void ClickMenuOptionButton()
     {
-
+        
     }
 
     public void ClickMenuContinueButton()
@@ -77,10 +75,15 @@ public class LobbySceneManager : MonoBehaviour
     }
     public void ClickattendanceConfirmButton()
     {
-        int attendanceResult = GameManager.ClientNetworkManager.AttendanceConfirm("eehluhy");
-        if (attendanceResult == 101) NewInfo("7일차 출석 완료");
-        else if(attendanceResult == 0) NewInfo("출석 완료");
-        else NewInfo("이미 출석 했습니다.");
+        string connectedIdTemp = GameManager.ClientNetworkManager.connectedId;
+        if (connectedIdTemp == "") NewInfo("먼저 로그인 해주세요");
+        else
+        {
+            int attendanceResult = GameManager.ClientNetworkManager.AttendanceConfirm(connectedIdTemp);
+            if (attendanceResult == 101) NewInfo("7일차 출석 완료");
+            else if (attendanceResult == 0) NewInfo("출석 완료");
+            else NewInfo("이미 출석 했습니다.");
+        }
     }
 
     public void ClickCloseButton()

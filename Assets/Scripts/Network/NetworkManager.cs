@@ -14,7 +14,7 @@ public class NetworkManager
 {
     public const int MTUSize = 1000;
     public  APIFunction.APIFunctionClient APIConnection;
-
+    public string connectedId = "";
     Socket Socket;
 
     ConcurrentQueue<byte[]> SendQueue;
