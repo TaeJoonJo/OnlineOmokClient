@@ -60,6 +60,13 @@ public class NetworkManager
         return reply.Message;
         
     }
+
+    public int AttendanceConfirm(string id)
+    {
+        var reply = APIConnection.Attendance(new Account { Id = id });
+        return reply.Message;
+
+    }
     public int CreateAccountConfirm(string id, string pw, string nickName, int sex, int age)
     {
         var reply = APIConnection.CreateAccount(new User

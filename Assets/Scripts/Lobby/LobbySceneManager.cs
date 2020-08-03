@@ -4,12 +4,19 @@ using UnityEngine;
 using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class LobbySceneManager : MonoBehaviour
 {
     public GameObject MainPanel;
-
     public GameObject MenuPanel;
+    public GameObject AttendancePanel;
+    public GameObject InfoPanel;
+
+    public GameObject attendanceButton;
+    public GameObject closeButton;
+    public GameObject attendanceConfirmButton;
+    public Text InfoText;
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +49,7 @@ public class LobbySceneManager : MonoBehaviour
         
 
         MenuPanel.SetActive(true);
+        
     }
 
     public void ClickMenuDisconnectButton()
@@ -63,4 +71,31 @@ public class LobbySceneManager : MonoBehaviour
 
         MenuPanel.SetActive(false);
     }
+    public void ClickAttendanceButton()
+    {
+        AttendancePanel.SetActive(true);
+    }
+    public void ClickattendanceConfirmButton()
+    {
+        int attendanceResult = GameManager.ClientNetworkManager.AttendanceConfirm("eehluhy");
+        if (attendanceResult == 101) NewInfo("7일차 출석 완료");
+        else if(attendanceResult == 0) NewInfo("출석 완료");
+        else NewInfo("이미 출석 했습니다.");
+    }
+
+    public void ClickCloseButton()
+    {
+        AttendancePanel.SetActive(false);
+    }
+
+    public void NewInfo(string infoString) { 
+        InfoText.text = infoString;
+        InfoPanel.SetActive(true);
+    }
+
+    public void ClickInfoOk()
+    {
+        InfoPanel.SetActive(false);
+    }
+
 }
