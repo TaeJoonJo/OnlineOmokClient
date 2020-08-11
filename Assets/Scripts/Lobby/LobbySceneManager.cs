@@ -5,12 +5,9 @@ using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 using UnityEngine.UI;
-<<<<<<< HEAD
 using System;
 using GatewayServer.Packet;
-=======
 using APIServer;
->>>>>>> 04fed5bbea3bf56a638631cb4134251515616bf7
 
 public class LobbySceneManager : MonoBehaviour
 {
