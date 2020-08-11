@@ -341,9 +341,10 @@ namespace MessagePack.Formatters.GatewayServer.Packet
             }
 
             IFormatterResolver formatterResolver = options.Resolver;
-            writer.WriteArrayHeader(2);
+            writer.WriteArrayHeader(3);
             formatterResolver.GetFormatterWithVerify<string>().Serialize(ref writer, value.UserID, options);
             formatterResolver.GetFormatterWithVerify<string>().Serialize(ref writer, value.AuthToken, options);
+            writer.Write(value.UniqueIndex);
         }
 
         public global::GatewayServer.Packet.PKTReqLogin Deserialize(ref MessagePackReader reader, global::MessagePack.MessagePackSerializerOptions options)
@@ -358,6 +359,7 @@ namespace MessagePack.Formatters.GatewayServer.Packet
             var length = reader.ReadArrayHeader();
             var __UserID__ = default(string);
             var __AuthToken__ = default(string);
+            var __UniqueIndex__ = default(ulong);
 
             for (int i = 0; i < length; i++)
             {
@@ -371,6 +373,9 @@ namespace MessagePack.Formatters.GatewayServer.Packet
                     case 1:
                         __AuthToken__ = formatterResolver.GetFormatterWithVerify<string>().Deserialize(ref reader, options);
                         break;
+                    case 2:
+                        __UniqueIndex__ = reader.ReadUInt64();
+                        break;
                     default:
                         reader.Skip();
                         break;
@@ -380,6 +385,7 @@ namespace MessagePack.Formatters.GatewayServer.Packet
             var ____result = new global::GatewayServer.Packet.PKTReqLogin();
             ____result.UserID = __UserID__;
             ____result.AuthToken = __AuthToken__;
+            ____result.UniqueIndex = __UniqueIndex__;
             reader.Depth--;
             return ____result;
         }
