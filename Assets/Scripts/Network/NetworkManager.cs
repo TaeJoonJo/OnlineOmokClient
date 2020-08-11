@@ -9,12 +9,17 @@ using System.Threading;
 using UnityEngine;
 using APIServer;
 using Grpc.Core;
+using System.Linq;
 
 public class NetworkManager
 {
     public const int MTUSize = 1000;
     public  APIFunction.APIFunctionClient APIConnection;
+    public int connectedIdx = 0;
+    public int connectedTempIdx = 0;
     public string connectedId = "";
+    public List<MailInfo> mailinfolist;
+
     Socket Socket;
 
     ConcurrentQueue<byte[]> SendQueue;
@@ -52,18 +57,21 @@ public class NetworkManager
     public void initGrpc()
     {
         var channel = new Channel(Common.APIServerAddress, ChannelCredentials.Insecure);
+
         APIConnection = new APIFunction.APIFunctionClient(channel);
     }
 
     public string LoginConfirm(string id, string pw)
     {
         var reply = APIConnection.Login(new User { Id = id, Password = pw });
-        return reply.Message;
+
+        connectedTempIdx = reply.IdNo;
+        return reply.Message; 
     }
 
-    public int AttendanceConfirm(string id)
+    public int AttendanceConfirm(int id)
     {
-        var reply = APIConnection.Attendance(new Account { Id = id });
+        var reply = APIConnection.Attendance(new Account { IdNo = id });
         return reply.Message;
 
     }
@@ -80,6 +88,20 @@ public class NetworkManager
 
         if (reply.Message == 0) return 0; //성공
         else return 1; //실패
+    }
+    
+    public void GetMail(int id)
+    {
+        var reply =  APIConnection.Mail(new Account  { IdNo = id });
+         Debug.Log(reply.MailInfo.Count());
+        
+         for(int i = 0; i < reply.MailInfo.Count(); i++)
+         {
+            mailinfolist[i] = reply.MailInfo[i];
+         }
+
+        // reply.MailInfo[0].SenderNo.ToString();
+        
     }
 
     public bool Connect(string ip, int port)

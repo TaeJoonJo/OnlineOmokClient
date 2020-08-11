@@ -5,8 +5,12 @@ using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 using UnityEngine.UI;
+<<<<<<< HEAD
 using System;
 using GatewayServer.Packet;
+=======
+using APIServer;
+>>>>>>> 04fed5bbea3bf56a638631cb4134251515616bf7
 
 public class LobbySceneManager : MonoBehaviour
 {
@@ -14,15 +18,24 @@ public class LobbySceneManager : MonoBehaviour
     public GameObject MenuPanel;
     public GameObject AttendancePanel;
     public GameObject InfoPanel;
+    public GameObject MailPanel;
 
     public GameObject attendanceButton;
     public GameObject closeButton;
     public GameObject attendanceConfirmButton;
+    public GameObject mailButton;
     public Text InfoText;
+    public Text mailuser;
+    public Text mailsender;
+
+    public ScrollView MailScrollView;
+
+    public GameObject GameMailInfo;
 
     // Start is called before the first frame update
     void Start()
     {
+       // GameManager.ClientNetworkManager.GetMail(3);
     }
      
     // Update is called once per frame
@@ -57,6 +70,16 @@ public class LobbySceneManager : MonoBehaviour
         
     }
 
+    public void Test()
+    {
+        //var mailInfo = new MailInfo();
+        //var mailInfo = new MailInfo();
+
+        var game = Instantiate(GameMailInfo);
+        //MailScrollView.Add()
+        game.transform.SetParent(GameObject.Find("Content").transform);
+    }
+
     public void ClickMenuDisconnectButton()
     {
         // TODO : 서버에 접속종료 요청
@@ -80,15 +103,25 @@ public class LobbySceneManager : MonoBehaviour
     }
     public void ClickattendanceConfirmButton()
     {
-        string connectedIdTemp = GameManager.ClientNetworkManager.connectedId;
-        if (connectedIdTemp == "") NewInfo("먼저 로그인 해주세요");
+        int userNo = GameManager.ClientNetworkManager.connectedIdx;
+        if (userNo == 0) NewInfo("먼저 로그인 해주세요");
         else
         {
-            int attendanceResult = GameManager.ClientNetworkManager.AttendanceConfirm(connectedIdTemp);
+            int attendanceResult = GameManager.ClientNetworkManager.AttendanceConfirm(userNo);
             if (attendanceResult == 101) NewInfo("7일차 출석 완료");
             else if (attendanceResult == 0) NewInfo("출석 완료");
             else NewInfo("이미 출석 했습니다.");
         }
+    }
+
+    public void ClickMailButton()
+    {
+        MailPanel.SetActive(true);
+
+        GameManager.ClientNetworkManager.GetMail(GameManager.ClientNetworkManager.connectedIdx);
+        //GameManager.ClientNetworkManager.GetMail(3);
+        mailsender.text  = (GameManager.ClientNetworkManager.mailinfolist[0].SenderNo).ToString();
+
     }
 
     public void ClickCloseButton()

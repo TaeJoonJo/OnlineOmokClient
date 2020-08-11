@@ -43,7 +43,7 @@ public class LoginSceneManager : MonoBehaviour
     {
         var userID = IDInputField.text;
         var userPW = PWInputField.text;
-        if(userID.Length < 1 ||
+        if (userID.Length < 1 ||
             userPW.Length < 1)
         {
             NewInfo("아이디와 비밀번호를 입력해야 합니다.");
@@ -56,7 +56,7 @@ public class LoginSceneManager : MonoBehaviour
         {
             GameManager.UserInfo.AuthToken = tokenValue;
             GameManager.ClientNetworkManager.Connect(Common.GatewayServerIP, Common.GatewayServerPort);
-            SendLogin(userID, tokenValue);
+            SendLogin(GameManager.ClientNetworkManager.connectedTempIdx, userID, tokenValue);
         }
         else
         {
@@ -77,9 +77,7 @@ public class LoginSceneManager : MonoBehaviour
         var userPW = SignupPWInputField.text;
         var userNickName = SignupNNInputField.text;
 
-        if (userID.Length < 1 ||
-            userPW.Length < 1 ||
-            userNickName.Length < 1)
+        if (userID.Length < 1 || userPW.Length < 1 || userNickName.Length < 1)
         {
             NewInfo("모든 정보를 입력해야 합니다.");
             return;
@@ -97,10 +95,7 @@ public class LoginSceneManager : MonoBehaviour
         else if(inputAge == "20") userAge = 2;
         else if(inputAge == "30") userAge = 3;
         else if(inputAge == "40") userAge = 4;
-        
-
-        //var userAge = Convert.ToInt32(SignupAgeDropdown.itemText.text.Substring(0, 2));
-
+      
         int resultCreateAccount = GameManager.ClientNetworkManager.CreateAccountConfirm(userID, userPW, userNickName, userGender, userAge);
         Debug.Log(resultCreateAccount);
         if (resultCreateAccount == 0) NewInfo("회원가입이 완료되었습니다.");
@@ -144,7 +139,8 @@ public class LoginSceneManager : MonoBehaviour
         InfoPanel.SetActive(true);
     }
 
-    public void SendLogin(string userID, string tokenValue)
+    // TODO :
+    public void SendLogin(int userIdx, string userID, string tokenValue)
     {
 
         Debug.Log("SendLogin");
@@ -153,7 +149,6 @@ public class LoginSceneManager : MonoBehaviour
         var body = MessagePackSerializer.Serialize(request);
         var sendPacket = PacketDef.PKTHandleHelper.MakePacket((UInt16)PacketDef.ClientGatePacketID.ReqLogin, body);
 
-        Debug.Log("SendLogin에서 보냅니다");
         GameManager.ClientNetworkManager.Send(sendPacket);
     }
 
@@ -170,20 +165,24 @@ public class LoginSceneManager : MonoBehaviour
     public void RecvLoginResult(object data)
     {
         var result = (UInt16)data;
-        Debug.Log("loginresult : " + result);
 
         if(result != 0)
         {
             NewInfo("로그인 실패!");
             return;
         }
-        Debug.Log("RecvLoginResult에서 로그인 성공" + IDInputField.text);
+
         GameManager.ClientNetworkManager.connectedId = IDInputField.text;
+
 
         GameManager.UserInfo.UserID = IDInputField.text;
 
         //SceneManager.LoadScene(Common.LobbySceneName);
         SendLobbyEnter();
+
+        GameManager.ClientNetworkManager.connectedIdx = GameManager.ClientNetworkManager.connectedTempIdx;
+   //   GameManager.ClientNetworkManager.GetMail(GameManager.ClientNetworkManager.connectedIdx);
+        //SceneManager.LoadScene(Common.LobbySceneName);
     }
 
     public void RecvLobbyEnterResult(object data)

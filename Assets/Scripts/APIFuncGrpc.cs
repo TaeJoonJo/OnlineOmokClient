@@ -16,6 +16,7 @@ namespace APIServer {
     static readonly grpc::Marshaller<global::APIServer.Confirm> __Marshaller_APIFunc_Confirm = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::APIServer.Confirm.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::APIServer.LoginConfirm> __Marshaller_APIFunc_LoginConfirm = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::APIServer.LoginConfirm.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::APIServer.Account> __Marshaller_APIFunc_Account = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::APIServer.Account.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::APIServer.MailList> __Marshaller_APIFunc_MailList = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::APIServer.MailList.Parser.ParseFrom);
 
     static readonly grpc::Method<global::APIServer.User, global::APIServer.Confirm> __Method_CreateAccount = new grpc::Method<global::APIServer.User, global::APIServer.Confirm>(
         grpc::MethodType.Unary,
@@ -37,6 +38,13 @@ namespace APIServer {
         "Attendance",
         __Marshaller_APIFunc_Account,
         __Marshaller_APIFunc_Confirm);
+
+    static readonly grpc::Method<global::APIServer.Account, global::APIServer.MailList> __Method_Mail = new grpc::Method<global::APIServer.Account, global::APIServer.MailList>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "Mail",
+        __Marshaller_APIFunc_Account,
+        __Marshaller_APIFunc_MailList);
 
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -114,6 +122,22 @@ namespace APIServer {
       public virtual grpc::AsyncUnaryCall<global::APIServer.Confirm> AttendanceAsync(global::APIServer.Account request, grpc::CallOptions options)
       {
         return CallInvoker.AsyncUnaryCall(__Method_Attendance, null, options, request);
+      }
+      public virtual global::APIServer.MailList Mail(global::APIServer.Account request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return Mail(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::APIServer.MailList Mail(global::APIServer.Account request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_Mail, null, options, request);
+      }
+      public virtual grpc::AsyncUnaryCall<global::APIServer.MailList> MailAsync(global::APIServer.Account request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return MailAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual grpc::AsyncUnaryCall<global::APIServer.MailList> MailAsync(global::APIServer.Account request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_Mail, null, options, request);
       }
       /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
       protected override APIFunctionClient NewInstance(ClientBaseConfiguration configuration)
