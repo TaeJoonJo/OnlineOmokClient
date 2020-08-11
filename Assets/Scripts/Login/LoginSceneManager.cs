@@ -143,7 +143,8 @@ public class LoginSceneManager : MonoBehaviour
     public void SendLogin(int userIdx, string userID, string tokenValue)
     {
 
-        var request = new GatewayServer.PKTReqLogin() { UserID = userID, AuthToken = tokenValue };
+        Debug.Log("SendLogin");
+        var request = new GatewayServer.Packet.PKTReqLogin() { UserID = userID, AuthToken = tokenValue };
 
         var body = MessagePackSerializer.Serialize(request);
         var sendPacket = PacketDef.PKTHandleHelper.MakePacket((UInt16)PacketDef.ClientGatePacketID.ReqLogin, body);

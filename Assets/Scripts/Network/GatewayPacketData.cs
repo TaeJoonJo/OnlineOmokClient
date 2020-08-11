@@ -1,12 +1,9 @@
 ﻿using MessagePack;
 using System;
+using System.Collections.Generic;
 
-
-namespace GatewayServer
+namespace GatewayServer.Packet
 {
-
-
-
     [MessagePackObject]
     public class PKTHeader
     {
@@ -21,7 +18,7 @@ namespace GatewayServer
     #region Client-GatewayServer
 
     [MessagePackObject]
-    public class PKTReqLogin //: PKTHeader
+    public class PKTReqLogin 
     {
         [Key(0)]
         public String UserID;
@@ -30,7 +27,21 @@ namespace GatewayServer
     }
 
     [MessagePackObject]
-    public class PKTResLogin //: PKTHeader
+    public class PKTResLogin 
+    {
+        [Key(0)]
+        public UInt16 Result;
+    }
+
+    [MessagePackObject]
+    public class PKTReqLobbyEnter
+    {
+        [Key(0)]
+        public String AuthToken;
+    }
+
+    [MessagePackObject]
+    public class PKTResLobbyEnter
     {
         [Key(0)]
         public UInt16 Result;
@@ -38,16 +49,4 @@ namespace GatewayServer
 
     #endregion
 
-    #region Redis-GatewayServer
-
-    [MessagePackObject]
-    public class PKTResLoginResult //: PKTHeader
-    {
-        [Key(0)]
-        public String UserID;
-        [Key(1)]
-        public bool isLoginOK;
-    }
-
-    #endregion
 }

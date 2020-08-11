@@ -1,8 +1,11 @@
 ﻿using MessagePack;
 using MessagePack.Resolvers;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+
 
 public class GameManager : MonoBehaviour
 {
@@ -11,19 +14,12 @@ public class GameManager : MonoBehaviour
     public static PacketFunc RecvLoginResult;
 
     public static NetworkManager ClientNetworkManager;
-    public bool isInitialized;
-    public GameManager()
-    {
-        //DontDestroyOnLoad(gameObject);
-
-        //Initalize();
-    }
 
     // Start is called before the first frame update
     void Start()
     {
         DontDestroyOnLoad(gameObject);
-        if(!isInitialized) Initalize();
+        Initalize();
         
     }
 
@@ -34,7 +30,6 @@ public class GameManager : MonoBehaviour
         ClientNetworkManager = new NetworkManager();
 
         ClientNetworkManager.Initalize();
-        isInitialized = true;
     }
 
     static void InitMsgPack()
@@ -79,7 +74,7 @@ public class GameManager : MonoBehaviour
                 case PacketDef.ClientGatePacketID.ResLogin:
                     {
                         Debug.Log("Recv ResLogin");
-                        var packet = MessagePackSerializer.Deserialize<GatewayServer.PKTResLogin>(packetData.PacketBody);
+                        var packet = MessagePackSerializer.Deserialize<GatewayServer.Packet.PKTResLogin>(packetData.PacketBody);
                         
                         RecvLoginResult(packet.Result);
                     } break;
