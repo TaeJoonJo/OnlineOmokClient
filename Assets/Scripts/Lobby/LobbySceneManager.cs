@@ -5,6 +5,8 @@ using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 using UnityEngine.UI;
+using System;
+using GatewayServer.Packet;
 
 public class LobbySceneManager : MonoBehaviour
 {
@@ -22,15 +24,18 @@ public class LobbySceneManager : MonoBehaviour
     void Start()
     {
     }
-
+     
     // Update is called once per frame
     void Update()
     {
+
     }
 
     public void ClickMatchingStart()
     {
-        SceneManager.LoadScene(Common.InGameSceneName);
+        var packet = new PKTReqLobbyEnter() { };
+
+        //SceneManager.LoadScene(Common.InGameSceneName);
     }
 
     public void ClickTmp()
@@ -101,4 +106,5 @@ public class LobbySceneManager : MonoBehaviour
         InfoPanel.SetActive(false);
     }
 
+    
 }

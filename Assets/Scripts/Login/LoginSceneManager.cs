@@ -31,6 +31,7 @@ public class LoginSceneManager : MonoBehaviour
     void Start()
     {
         GameManager.RecvLoginResult += RecvLoginResult;
+        GameManager.RecvLobbyEnter += RecvLobbyEnterResult;
     }
 
     // Update is called once per frame
@@ -49,20 +50,18 @@ public class LoginSceneManager : MonoBehaviour
             return;
         }
 
-
         string tokenValue = GameManager.ClientNetworkManager.LoginConfirm(userID, userPW);
         Debug.Log(tokenValue);
         if (tokenValue != "102")
         {
-            GameManager.ClientNetworkManager.Connect("127.0.0.1", 32452);
+            GameManager.UserInfo.AuthToken = tokenValue;
+            GameManager.ClientNetworkManager.Connect(Common.GatewayServerIP, Common.GatewayServerPort);
             SendLogin(userID, tokenValue);
         }
         else
         {
             NewInfo("아이디와 비밀번호를 확인해주세요.");
         }
-
-        
     }
 
     public void ClickSignup()
@@ -115,7 +114,7 @@ public class LoginSceneManager : MonoBehaviour
 
         /// TODO : API서버 회원가입요청
 
-        GameManager.ClientNetworkManager.Connect("127.0.0.1", 32452);
+        GameManager.ClientNetworkManager.Connect(Common.GatewayServerIP, Common.GatewayServerPort);
     }
 
     public void ClickSignupCancle()
@@ -158,9 +157,18 @@ public class LoginSceneManager : MonoBehaviour
         GameManager.ClientNetworkManager.Send(sendPacket);
     }
 
+    public void SendLobbyEnter()
+    {
+        var request = new GatewayServer.Packet.PKTReqLobbyEnter() { AuthToken = GameManager.UserInfo.AuthToken };
+
+        var body = MessagePackSerializer.Serialize(request);
+        var packet = PacketDef.PKTHandleHelper.MakePacket((UInt16)PacketDef.ClientGatePacketID.ReqLobbyEnter, body);
+
+        GameManager.ClientNetworkManager.Send(packet);
+    }
+
     public void RecvLoginResult(object data)
     {
-        Debug.Log("RecvLoginResult");
         var result = (UInt16)data;
         Debug.Log("loginresult : " + result);
 
@@ -171,11 +179,21 @@ public class LoginSceneManager : MonoBehaviour
         }
         Debug.Log("RecvLoginResult에서 로그인 성공" + IDInputField.text);
         GameManager.ClientNetworkManager.connectedId = IDInputField.text;
-        SceneManager.LoadScene(Common.LobbySceneName);
+
+        GameManager.UserInfo.UserID = IDInputField.text;
+
+        //SceneManager.LoadScene(Common.LobbySceneName);
+        SendLobbyEnter();
     }
 
-    public void RecvSignupResult(UInt16 result)
+    public void RecvLobbyEnterResult(object data)
     {
+        UInt16 result = (UInt16)data;
 
+        Debug.Log($"RecvLobbyEnter Result [ {result} ]");
+        if (result == 0)
+        {
+            SceneManager.LoadScene(Common.LobbySceneName);
+        }
     }
 }

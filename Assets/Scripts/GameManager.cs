@@ -1,4 +1,5 @@
-﻿using MessagePack;
+﻿using APIServer;
+using MessagePack;
 using MessagePack.Resolvers;
 using System;
 using System.Collections;
@@ -12,15 +13,16 @@ public class GameManager : MonoBehaviour
     public delegate void PacketFunc(object data);
 
     public static PacketFunc RecvLoginResult;
-
+    public static PacketFunc RecvLobbyEnter;
     public static NetworkManager ClientNetworkManager;
+
+    public static UserInfo UserInfo;
 
     // Start is called before the first frame update
     void Start()
     {
         DontDestroyOnLoad(gameObject);
         Initalize();
-        
     }
 
     public void Initalize()
@@ -53,10 +55,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void OnApplicationQuit()
-    {
-        ClientNetworkManager.Disconnect();
-    }
+    //void OnApplicationQuit()
+    //{
+    //    ClientNetworkManager.Disconnect();
+    //}
 
     void OnDestroy()
     {
@@ -77,6 +79,13 @@ public class GameManager : MonoBehaviour
                         var packet = MessagePackSerializer.Deserialize<GatewayServer.Packet.PKTResLogin>(packetData.PacketBody);
                         
                         RecvLoginResult(packet.Result);
+                    } break;
+                case PacketDef.ClientGatePacketID.ResLobbyEnter:
+                    {
+                        Debug.Log("Recv ResLobbyEnter");
+                        var packet = MessagePackSerializer.Deserialize<GatewayServer.Packet.PKTResLobbyEnter>(packetData.PacketBody);
+
+                        RecvLobbyEnter(packet.Result);
                     } break;
             }
         }

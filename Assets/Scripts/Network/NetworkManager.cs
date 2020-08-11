@@ -44,13 +44,14 @@ public class NetworkManager
         PacketBufferManager = new PacketBufferManager();
         PacketBufferManager.Init(MTUSize * 8, 5, MTUSize);
 
-        NetworkThread = new Thread(NetworkProcess);
         initGrpc();
+
+        NetworkThread = new Thread(NetworkProcess);
     }
 
     public void initGrpc()
     {
-        var channel = new Channel("127.0.0.1:5001", ChannelCredentials.Insecure);
+        var channel = new Channel(Common.APIServerAddress, ChannelCredentials.Insecure);
         APIConnection = new APIFunction.APIFunctionClient(channel);
     }
 
@@ -58,7 +59,6 @@ public class NetworkManager
     {
         var reply = APIConnection.Login(new User { Id = id, Password = pw });
         return reply.Message;
-        
     }
 
     public int AttendanceConfirm(string id)

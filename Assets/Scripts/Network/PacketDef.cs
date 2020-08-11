@@ -58,6 +58,9 @@ public class PacketDef
         ResLogin = 102,
 
 
+
+        ReqLobbyEnter = 105,
+        ResLobbyEnter = 106,
     }
 
     #endregion
