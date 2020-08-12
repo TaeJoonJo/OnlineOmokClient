@@ -8,6 +8,7 @@ using UnityEngine.UI;
 using System;
 using GatewayServer.Packet;
 using APIServer;
+using MessagePack;
 
 public class LobbySceneManager : MonoBehaviour
 {
@@ -21,6 +22,11 @@ public class LobbySceneManager : MonoBehaviour
     public GameObject closeButton;
     public GameObject attendanceConfirmButton;
     public GameObject mailButton;
+
+    public GameObject LoadingPanel;
+    public RectTransform LoadingProgress;
+    const float RotateSpeed = 200f;
+
     public Text InfoText;
     public Text mailuser;
     public Text mailsender;
@@ -32,18 +38,22 @@ public class LobbySceneManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameManager.RecvMatchingResult += RecvMatchingResult;
        // GameManager.ClientNetworkManager.GetMail(3);
     }
      
     // Update is called once per frame
     void Update()
     {
-
+        if(LoadingPanel.activeSelf == true)
+        {
+            LoadingProgress.Rotate(0f, 0f, RotateSpeed * Time.deltaTime);
+        }
     }
 
     public void ClickMatchingStart()
     {
-        var packet = new PKTReqLobbyEnter() { };
+        SendMatching();
 
         //SceneManager.LoadScene(Common.InGameSceneName);
     }
@@ -137,5 +147,38 @@ public class LobbySceneManager : MonoBehaviour
         InfoPanel.SetActive(false);
     }
 
-    
+    void SendMatching()
+    {
+        var packetData = new PKTReqMatching();
+        packetData.MatchingType = 0;
+
+        var packet = MessagePackSerializer.Serialize(packetData);
+        var sendPacket = PacketDef.PKTHandleHelper.MakePacket((UInt16)PacketDef.ClientGatePacketID.ReqMatching, packet);
+
+        GameManager.ClientNetworkManager.Send(sendPacket);
+    }
+
+    void SendEnterRoom()
+    {
+        var packetData = new PKTReqRoomEnter();
+
+        var packet = MessagePackSerializer.Serialize(packetData);
+        var sendPacket = PacketDef.PKTHandleHelper.MakePacket((UInt16)PacketDef.ClientGatePacketID.ReqRoomEnter, packet);
+
+        GameManager.ClientNetworkManager.Send(sendPacket);
+    }
+
+    void RecvMatchingResult(object data)
+    {
+        var result = (UInt16)data;
+
+        Debug.Log($"RecvMatchingResult : [{result}]");
+
+        if(result == 0)
+        {
+            SendEnterRoom();
+
+            LoadingPanel.SetActive(true);
+        }
+    }
 }

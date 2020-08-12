@@ -57,10 +57,22 @@ public class PacketDef
         ReqLogin = 101,
         ResLogin = 102,
 
-
+        Connect = 103,
+        Disconnect = 104,
 
         ReqLobbyEnter = 105,
         ResLobbyEnter = 106,
+
+        NTFLobbyChat = 107,
+        ReqLobbyChat = 108,
+
+        ReqRoomEnter = 109,
+        ResRoomEnter = 110,
+
+        ReqMatching = 111,
+        NTFMatchingResult = 112,
+        //LobbyAddUser = 109,
+        //LobbyDeleteUser = 110,
     }
 
     #endregion

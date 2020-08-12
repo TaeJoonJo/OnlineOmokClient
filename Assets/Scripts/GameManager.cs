@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
 
     public static PacketFunc RecvLoginResult;
     public static PacketFunc RecvLobbyEnter;
+    public static PacketFunc RecvMatchingResult;
+
     public static NetworkManager ClientNetworkManager;
 
     public static UserInfo UserInfo;
@@ -86,6 +88,13 @@ public class GameManager : MonoBehaviour
                         var packet = MessagePackSerializer.Deserialize<GatewayServer.Packet.PKTResLobbyEnter>(packetData.PacketBody);
 
                         RecvLobbyEnter(packet.Result);
+                    } break;
+                case PacketDef.ClientGatePacketID.NTFMatchingResult:
+                    {
+                        Debug.Log("Recv NTFMatchingReuslt");
+                        var packet = MessagePackSerializer.Deserialize<GatewayServer.Packet.PKTNTFMatchingResult>(packetData.PacketBody);
+
+                        RecvMatchingResult(packet.Result);
                     } break;
             }
         }

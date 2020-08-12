@@ -67,8 +67,6 @@ public class LoginSceneManager : MonoBehaviour
     public void ClickSignup()
     {
         SignupPanel.SetActive(true);
-        
-
     }
 
     public void ClickSignupOk()
