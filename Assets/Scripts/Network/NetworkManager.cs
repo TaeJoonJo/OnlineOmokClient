@@ -15,8 +15,8 @@ public class NetworkManager
 {
     public const int MTUSize = 1000;
     public  APIFunction.APIFunctionClient APIConnection;
-    public UInt64 connectedIdx = 0;
-    public UInt64 connectedTempIdx = 0;
+    public int connectedIdx = 0;
+    public int connectedTempIdx = 0;
     public string connectedId = "";
     public List<MailInfo> mailinfolist;
 
@@ -65,7 +65,7 @@ public class NetworkManager
     {
         var reply = APIConnection.Login(new User { Id = id, Password = pw });
 
-        connectedTempIdx = (UInt64)reply.IdNo;
+        connectedTempIdx = reply.IdNo;
         return reply.Message; 
     }
 
@@ -77,6 +77,7 @@ public class NetworkManager
     }
     public int CreateAccountConfirm(string id, string pw, string nickName, int sex, int age)
     {
+        Debug.Log("회원가입 확인중 ");
         var reply = APIConnection.CreateAccount(new User
         {
             Id = id,
@@ -85,23 +86,26 @@ public class NetworkManager
             Sex = sex,
             Age = age
         });
-
         if (reply.Message == 0) return 0; //성공
         else return 1; //실패
     }
     
-    public void GetMail(UInt64 id)
+    public void GetMail(int id)
     {
-        var reply =  APIConnection.Mail(new Account  { IdNo = (int)id });
-         Debug.Log(reply.MailInfo.Count());
-        
+        Debug.Log("getmail 들어옴");
+        var reply =  APIConnection.Mail(new Account  { IdNo = id });
+        Debug.Log("메일 수 : "+ reply.MailInfo.Count());
+        Debug.Log(reply.MailInfo[0].UserNo + " "+reply.MailInfo[0].SenderNo + " " + reply.MailInfo[0].Content + " " + reply.MailInfo[0].Kind);
+        /*
          for(int i = 0; i < reply.MailInfo.Count(); i++)
          {
-            mailinfolist[i] = reply.MailInfo[i];
-         }
-
+            mailinfolist[i].UserNo = reply.MailInfo[i].UserNo;
+            mailinfolist[i].SenderNo = reply.MailInfo[i].SenderNo;
+            mailinfolist[i].Content = reply.MailInfo[i].Content;
+            mailinfolist[i].Kind = reply.MailInfo[i].Kind;
+        }*/
         // reply.MailInfo[0].SenderNo.ToString();
-        
+
     }
 
     public bool Connect(string ip, int port)

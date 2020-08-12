@@ -97,19 +97,16 @@ public class LoginSceneManager : MonoBehaviour
         else if(inputAge == "40") userAge = 4;
       
         int resultCreateAccount = GameManager.ClientNetworkManager.CreateAccountConfirm(userID, userPW, userNickName, userGender, userAge);
-        Debug.Log(resultCreateAccount);
+        Debug.Log("회원가입 결과 확인 : " + resultCreateAccount);
         if (resultCreateAccount == 0) NewInfo("회원가입이 완료되었습니다.");
         else NewInfo("아이디와 닉네임을 확인해주세요");
-
+        Debug.Log("회원가입 끝 : " + resultCreateAccount);
         SignupIDInputField.text = "";
         SignupPWInputField.text = "";
         SignupNNInputField.text = "";
 
         SignupPanel.SetActive(false);
 
-        /// TODO : API서버 회원가입요청
-
-        GameManager.ClientNetworkManager.Connect(Common.GatewayServerIP, Common.GatewayServerPort);
     }
 
     public void ClickSignupCancle()
@@ -140,11 +137,11 @@ public class LoginSceneManager : MonoBehaviour
     }
 
     // TODO :
-    public void SendLogin(UInt64 userIdx, string userID, string tokenValue)
+    public void SendLogin(int userIdx, string userID, string tokenValue)
     {
 
         Debug.Log("SendLogin");
-        var request = new GatewayServer.Packet.PKTReqLogin() { UserID = userID, AuthToken = tokenValue, UniqueIndex =  userIdx};
+        var request = new GatewayServer.Packet.PKTReqLogin() { UserID = userID, AuthToken = tokenValue, UniqueIndex =  (UInt64)userIdx};
 
         var body = MessagePackSerializer.Serialize(request);
         var sendPacket = PacketDef.PKTHandleHelper.MakePacket((UInt16)PacketDef.ClientGatePacketID.ReqLogin, body);

@@ -114,11 +114,12 @@ public class LobbySceneManager : MonoBehaviour
     public void ClickMailButton()
     {
         MailPanel.SetActive(true);
-
-        GameManager.ClientNetworkManager.GetMail(GameManager.ClientNetworkManager.connectedIdx);
-        //GameManager.ClientNetworkManager.GetMail(3);
+        Debug.Log("사용자 : " + GameManager.ClientNetworkManager.connectedIdx);
+        //GameManager.ClientNetworkManager.GetMail(7);
+       GameManager.ClientNetworkManager.GetMail(GameManager.ClientNetworkManager.connectedIdx);
+      //GameManager.ClientNetworkManager.GetMail(3);
         mailsender.text  = (GameManager.ClientNetworkManager.mailinfolist[0].SenderNo).ToString();
-
+        Debug.Log("어째저째 끝남");
     }
 
     public void ClickCloseButton()

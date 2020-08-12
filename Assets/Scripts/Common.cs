@@ -12,7 +12,7 @@ public class Common : MonoBehaviour
 
     public const string APIServerAddress = "10.14.1.182:11001";
 
-    public const string GatewayServerIP = "127.0.0.1";
+    public const string GatewayServerIP = "10.14.1.188";
     public const int GatewayServerPort = 11101;
 
     

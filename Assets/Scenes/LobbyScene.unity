@@ -2148,6 +2148,8 @@ MonoBehaviour:
   attendanceConfirmButton: {fileID: 59049573}
   mailButton: {fileID: 629286761}
   InfoText: {fileID: 1839908335}
+  mailuser: {fileID: 0}
+  mailsender: {fileID: 0}
   GameMailInfo: {fileID: 9035306661128124591, guid: 4c37657774985b0498e7266112d2541d, type: 3}
 --- !u!114 &842335929
 MonoBehaviour:
