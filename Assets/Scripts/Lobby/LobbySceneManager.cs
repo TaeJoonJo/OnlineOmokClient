@@ -35,10 +35,14 @@ public class LobbySceneManager : MonoBehaviour
 
     public GameObject GameMailInfo;
 
+    public Text LoadingText;
+
     // Start is called before the first frame update
     void Start()
     {
         GameManager.RecvMatchingResult += RecvMatchingResult;
+        GameManager.RecvRoomEnter += RecvRoomEnter;
+        GameManager.RecvLobbyChat += RecvLobbyChat;
        // GameManager.ClientNetworkManager.GetMail(3);
     }
      
@@ -147,6 +151,12 @@ public class LobbySceneManager : MonoBehaviour
         InfoPanel.SetActive(false);
     }
 
+    void StartLoading()
+    {
+        LoadingText.text = "매칭중...";
+        LoadingPanel.SetActive(true);
+    }
+
     void SendMatching()
     {
         var packetData = new PKTReqMatching();
@@ -156,9 +166,11 @@ public class LobbySceneManager : MonoBehaviour
         var sendPacket = PacketDef.PKTHandleHelper.MakePacket((UInt16)PacketDef.ClientGatePacketID.ReqMatching, packet);
 
         GameManager.ClientNetworkManager.Send(sendPacket);
+
+        StartLoading();
     }
 
-    void SendEnterRoom()
+    void SendRoomEnter()
     {
         var packetData = new PKTReqRoomEnter();
 
@@ -168,17 +180,41 @@ public class LobbySceneManager : MonoBehaviour
         GameManager.ClientNetworkManager.Send(sendPacket);
     }
 
+    void RecvLobbyChat(object data)
+    {
+        var chat = (string)data;
+
+        Debug.Log(chat);
+    }
+
     void RecvMatchingResult(object data)
     {
         var result = (UInt16)data;
 
         Debug.Log($"RecvMatchingResult : [{result}]");
 
-        if(result == 0)
+        if(result != 0)
         {
-            SendEnterRoom();
+            LoadingPanel.SetActive(false);
 
-            LoadingPanel.SetActive(true);
+            return;
         }
+
+        SendRoomEnter();
+    }
+
+    void RecvRoomEnter(object data)
+    {
+        var result = (UInt16)data;
+
+        Debug.Log($"RecvRoomEnterResult : [{ result }]");
+
+        if(result != 0)
+        {
+            NewInfo("매칭 실패");
+            return;
+        }
+
+        LoadingText.text = "다른 플레이어 기다리는 중...";
     }
 }
