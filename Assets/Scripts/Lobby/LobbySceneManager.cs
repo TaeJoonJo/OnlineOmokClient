@@ -100,11 +100,11 @@ public class LobbySceneManager : MonoBehaviour
     }
     public void ClickattendanceConfirmButton()
     {
-        int userNo = GameManager.ClientNetworkManager.connectedIdx;
+        var userNo = GameManager.ClientNetworkManager.connectedIdx;
         if (userNo == 0) NewInfo("먼저 로그인 해주세요");
         else
         {
-            int attendanceResult = GameManager.ClientNetworkManager.AttendanceConfirm(userNo);
+            int attendanceResult = GameManager.ClientNetworkManager.AttendanceConfirm((int)userNo);
             if (attendanceResult == 101) NewInfo("7일차 출석 완료");
             else if (attendanceResult == 0) NewInfo("출석 완료");
             else NewInfo("이미 출석 했습니다.");

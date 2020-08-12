@@ -140,11 +140,11 @@ public class LoginSceneManager : MonoBehaviour
     }
 
     // TODO :
-    public void SendLogin(int userIdx, string userID, string tokenValue)
+    public void SendLogin(UInt64 userIdx, string userID, string tokenValue)
     {
 
         Debug.Log("SendLogin");
-        var request = new GatewayServer.Packet.PKTReqLogin() { UserID = userID, AuthToken = tokenValue };
+        var request = new GatewayServer.Packet.PKTReqLogin() { UserID = userID, AuthToken = tokenValue, UniqueIndex =  userIdx};
 
         var body = MessagePackSerializer.Serialize(request);
         var sendPacket = PacketDef.PKTHandleHelper.MakePacket((UInt16)PacketDef.ClientGatePacketID.ReqLogin, body);

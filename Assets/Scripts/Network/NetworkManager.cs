@@ -15,8 +15,8 @@ public class NetworkManager
 {
     public const int MTUSize = 1000;
     public  APIFunction.APIFunctionClient APIConnection;
-    public int connectedIdx = 0;
-    public int connectedTempIdx = 0;
+    public UInt64 connectedIdx = 0;
+    public UInt64 connectedTempIdx = 0;
     public string connectedId = "";
     public List<MailInfo> mailinfolist;
 
@@ -65,7 +65,7 @@ public class NetworkManager
     {
         var reply = APIConnection.Login(new User { Id = id, Password = pw });
 
-        connectedTempIdx = reply.IdNo;
+        connectedTempIdx = (UInt64)reply.IdNo;
         return reply.Message; 
     }
 
@@ -90,9 +90,9 @@ public class NetworkManager
         else return 1; //실패
     }
     
-    public void GetMail(int id)
+    public void GetMail(UInt64 id)
     {
-        var reply =  APIConnection.Mail(new Account  { IdNo = id });
+        var reply =  APIConnection.Mail(new Account  { IdNo = (int)id });
          Debug.Log(reply.MailInfo.Count());
         
          for(int i = 0; i < reply.MailInfo.Count(); i++)
