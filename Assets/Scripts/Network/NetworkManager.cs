@@ -18,7 +18,6 @@ public class NetworkManager
     public int connectedIdx = 0;
     public int connectedTempIdx = 0;
     public string connectedId = "";
-    public List<MailInfo> mailinfolist = new List<MailInfo>();
 
     Socket Socket;
 
@@ -90,10 +89,16 @@ public class NetworkManager
         else return 1; //실패
     }
     
-    public void GetItemConfirm(int id)
+    public int GetItemConfirm(int id, int itemId , int itemCount)
     {
-        var reply = APIConnection.GetMailItem(new Account { IdNo = id });
-        //Debug.Log(reply.Message);
+        var reply = APIConnection.GetMailItem(new ItemInfo
+        { 
+            UserNo = id,
+            ItemId = itemId,
+            ItemCount = itemCount
+        });
+
+        return reply.Message;
     }
 
     public List<MailInfo> GetMails(int id)

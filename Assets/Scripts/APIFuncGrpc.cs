@@ -17,6 +17,7 @@ namespace APIServer {
     static readonly grpc::Marshaller<global::APIServer.LoginConfirm> __Marshaller_APIFunc_LoginConfirm = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::APIServer.LoginConfirm.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::APIServer.Account> __Marshaller_APIFunc_Account = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::APIServer.Account.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::APIServer.MailList> __Marshaller_APIFunc_MailList = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::APIServer.MailList.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::APIServer.ItemInfo> __Marshaller_APIFunc_ItemInfo = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::APIServer.ItemInfo.Parser.ParseFrom);
 
     static readonly grpc::Method<global::APIServer.User, global::APIServer.Confirm> __Method_CreateAccount = new grpc::Method<global::APIServer.User, global::APIServer.Confirm>(
         grpc::MethodType.Unary,
@@ -46,11 +47,11 @@ namespace APIServer {
         __Marshaller_APIFunc_Account,
         __Marshaller_APIFunc_MailList);
 
-    static readonly grpc::Method<global::APIServer.Account, global::APIServer.Confirm> __Method_GetMailItem = new grpc::Method<global::APIServer.Account, global::APIServer.Confirm>(
+    static readonly grpc::Method<global::APIServer.ItemInfo, global::APIServer.Confirm> __Method_GetMailItem = new grpc::Method<global::APIServer.ItemInfo, global::APIServer.Confirm>(
         grpc::MethodType.Unary,
         __ServiceName,
         "GetMailItem",
-        __Marshaller_APIFunc_Account,
+        __Marshaller_APIFunc_ItemInfo,
         __Marshaller_APIFunc_Confirm);
 
     /// <summary>Service descriptor</summary>
@@ -146,19 +147,19 @@ namespace APIServer {
       {
         return CallInvoker.AsyncUnaryCall(__Method_Mail, null, options, request);
       }
-      public virtual global::APIServer.Confirm GetMailItem(global::APIServer.Account request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual global::APIServer.Confirm GetMailItem(global::APIServer.ItemInfo request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return GetMailItem(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
-      public virtual global::APIServer.Confirm GetMailItem(global::APIServer.Account request, grpc::CallOptions options)
+      public virtual global::APIServer.Confirm GetMailItem(global::APIServer.ItemInfo request, grpc::CallOptions options)
       {
         return CallInvoker.BlockingUnaryCall(__Method_GetMailItem, null, options, request);
       }
-      public virtual grpc::AsyncUnaryCall<global::APIServer.Confirm> GetMailItemAsync(global::APIServer.Account request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual grpc::AsyncUnaryCall<global::APIServer.Confirm> GetMailItemAsync(global::APIServer.ItemInfo request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return GetMailItemAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
-      public virtual grpc::AsyncUnaryCall<global::APIServer.Confirm> GetMailItemAsync(global::APIServer.Account request, grpc::CallOptions options)
+      public virtual grpc::AsyncUnaryCall<global::APIServer.Confirm> GetMailItemAsync(global::APIServer.ItemInfo request, grpc::CallOptions options)
       {
         return CallInvoker.AsyncUnaryCall(__Method_GetMailItem, null, options, request);
       }

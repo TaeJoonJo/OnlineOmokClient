@@ -17,12 +17,14 @@ public class LobbySceneManager : MonoBehaviour
     public GameObject AttendancePanel;
     public GameObject InfoPanel;
     public GameObject MailPanel;
+    public GameObject MailResultPanel;
     static public GameObject GameInfoPanel;
 
     public GameObject attendanceButton;
     public GameObject closeButton;
     public GameObject attendanceConfirmButton;
     public GameObject mailButton;
+
 
     public GameObject LoadingPanel;
     public RectTransform LoadingProgress;
@@ -34,7 +36,7 @@ public class LobbySceneManager : MonoBehaviour
     public GameObject GameMailInfo;
 
     public Text LoadingText;
-
+    public Text MailResultText;
     // Start is called before the first frame update
     void Start()
     {
@@ -44,6 +46,7 @@ public class LobbySceneManager : MonoBehaviour
         GameManager.RecvLobbyChat += RecvLobbyChat;
 
     }
+     
      
     // Update is called once per frame
     void Update()
@@ -141,7 +144,7 @@ public class LobbySceneManager : MonoBehaviour
         mailInformation.Init(mailInfo);
 
 
-        mail.transform.SetParent(GameObject.Find("Content").transform);
+        mail.transform.SetParent(GameObject.Find("Contents").transform);
     }
 
     public void ClickCloseButton()
