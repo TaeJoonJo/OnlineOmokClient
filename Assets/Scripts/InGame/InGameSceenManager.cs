@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GatewayServer.Packet;
+using MessagePack;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,16 +30,23 @@ public class InGameSceenManager : MonoBehaviour
     public GameObject ResultPanel;
     public Text ResultText;
 
-    //float CameraMoveX = 0;
-    //float CameraMoveY = 0;
-
     public GameObject BlackStone;
     public GameObject WhiteStone;
 
     //KeyValuePair<float, float>[,] OmokPanLocation;
     OmokPanPoint[,] OmokPanPoints;
 
-    bool isBlack = true;
+    bool IsBlack = true;
+    bool IsMyTurn = false;
+
+    public GameObject LoadingPanel;
+    public RectTransform LoadingProgress;
+    const float RotateSpeed = 200f;
+
+    public GameObject InfoPanel;
+    public Text InfoText;
+
+    string OpponentID;
 
     // Start is called before the first frame update
     void Start()
@@ -58,11 +67,21 @@ public class InGameSceenManager : MonoBehaviour
             x = 0;
             ++y;
         }
+
+        GameManager.RecvGameInfo += RecvGameInfo;
+        GameManager.RecvGamePut += RecvGamePut;
     }
 
     // Update is called once per frame
     void Update()
     {
+        #region LoadingProgress
+        if (LoadingPanel.activeSelf == true)
+        {
+            LoadingProgress.Rotate(0f, 0f, RotateSpeed * Time.deltaTime);
+        }
+        #endregion
+
         #region ThrowStone
 
         CheckThrowStone();
@@ -160,49 +179,52 @@ public class InGameSceenManager : MonoBehaviour
             int xIdx = Mathf.RoundToInt((pos.x + StoneMaxX) / OmokPanPointDistance);
             int yIdx = Mathf.RoundToInt((pos.y + StoneMaxY) / OmokPanPointDistance);
 
-            var point = OmokPanPoints[yIdx, xIdx];
-            if (point.OmokStone != null)
-            {
-                return;
-            }
+            SendGamePut(xIdx, yIdx);
 
-            GameObject stone;
-            OmokPanPoint.PointType pointType;
-            if (isBlack)
-            {
-                stone = BlackStone;
-                pointType = OmokPanPoint.PointType.Black;
-            }
-            else
-            {
-                stone = WhiteStone;
-                pointType = OmokPanPoint.PointType.White;
-            }
+            /// TODO : 서버로 이전
+            //var point = OmokPanPoints[yIdx, xIdx];
+            //if (point.OmokStone != null)
+            //{
+            //    return;
+            //}
 
-            if(OmokRule.ConfirmThreeThree(OmokPanPoints, xIdx, yIdx, pointType) == true)
-            {
-                Debug.Log("거긴 3 3입니다!");
-                return;
-            }
+            //GameObject stone;
+            //OmokPanPoint.PointType pointType;
+            //if (isBlack)
+            //{
+            //    stone = BlackStone;
+            //    pointType = OmokPanPoint.PointType.Black;
+            //}
+            //else
+            //{
+            //    stone = WhiteStone;
+            //    pointType = OmokPanPoint.PointType.White;
+            //}
 
-            Vector3 stonePos = new Vector3((float)((xIdx - (OmokPanPointNumber / 2)) * OmokPanPointDistance), (float)((yIdx - (OmokPanPointNumber / 2)) * OmokPanPointDistance), -1);
-            point.OmokStone = Instantiate(stone, stonePos, Quaternion.identity);
-            point.Type = pointType;
+            //if(OmokRule.ConfirmThreeThree(OmokPanPoints, xIdx, yIdx, pointType) == true)
+            //{
+            //    Debug.Log("거긴 3 3입니다!");
+            //    return;
+            //}
 
-            if (OmokRule.ConfirmOmok(OmokPanPoints, xIdx, yIdx, pointType) == true)
-            {
-                Debug.Log("오목! 승리~!");
-                if(pointType == OmokPanPoint.PointType.Black)
-                {
-                    NotifyResult("흑돌 승리!");
-                }
-                else
-                {
-                    NotifyResult("백돌 승리!");
-                }
-            }
+            //Vector3 stonePos = new Vector3((float)((xIdx - (OmokPanPointNumber / 2)) * OmokPanPointDistance), (float)((yIdx - (OmokPanPointNumber / 2)) * OmokPanPointDistance), -1);
+            //point.OmokStone = Instantiate(stone, stonePos, Quaternion.identity);
+            //point.Type = pointType;
 
-            isBlack = !isBlack;
+            //if (OmokRule.ConfirmOmok(OmokPanPoints, xIdx, yIdx, pointType) == true)
+            //{
+            //    Debug.Log("오목! 승리~!");
+            //    if(pointType == OmokPanPoint.PointType.Black)
+            //    {
+            //        NotifyResult("흑돌 승리!");
+            //    }
+            //    else
+            //    {
+            //        NotifyResult("백돌 승리!");
+            //    }
+            //}
+
+            //isBlack = !isBlack;
         }
     }
 
@@ -210,27 +232,53 @@ public class InGameSceenManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1))
         {
-            var pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            if (pos.x < MinLocation || pos.x > MaxLocation
-                || pos.y < MinLocation || pos.y > MaxLocation)
-            {
-                return;
-            }
-            Debug.Log("Click ; " + pos);
-            int xIdx = Mathf.RoundToInt((pos.x + StoneMaxX) / OmokPanPointDistance);
-            int yIdx = Mathf.RoundToInt((pos.y + StoneMaxY) / OmokPanPointDistance);
-            Debug.Log("XIdx : " + xIdx + ", YIdx : " + yIdx);
+            //var pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            //if (pos.x < MinLocation || pos.x > MaxLocation
+            //    || pos.y < MinLocation || pos.y > MaxLocation)
+            //{
+            //    return;
+            //}
+            //Debug.Log("Click ; " + pos);
+            //int xIdx = Mathf.RoundToInt((pos.x + StoneMaxX) / OmokPanPointDistance);
+            //int yIdx = Mathf.RoundToInt((pos.y + StoneMaxY) / OmokPanPointDistance);
+            //Debug.Log("XIdx : " + xIdx + ", YIdx : " + yIdx);
 
-            var point = OmokPanPoints[yIdx, xIdx];
-            if (point.OmokStone == null)
-            {
-                return;
-            }
-            Destroy(point.OmokStone);
-            point.OmokStone = null;
-            point.Type = OmokPanPoint.PointType.None;
-            isBlack = !isBlack;
+            //var point = OmokPanPoints[yIdx, xIdx];
+            //if (point.OmokStone == null)
+            //{
+            //    return;
+            //}
+            //Destroy(point.OmokStone);
+            //point.OmokStone = null;
+            //point.Type = OmokPanPoint.PointType.None;
+            //isBlack = !isBlack;
         }
+    }
+
+    void Put((int, int)putPos, byte type)
+    {
+        var xIdx = putPos.Item1;
+        var yIdx = putPos.Item2;
+
+        var point = OmokPanPoints[yIdx, xIdx];
+
+        GameObject putObject = null;
+
+        switch (type)
+        {
+            case 1:
+                {
+                    putObject = BlackStone;
+                } break;
+            case 2:
+                {
+                    putObject = WhiteStone;
+                } break;
+        }
+
+        Vector3 stonePos = new Vector3((float)((xIdx - (OmokPanPointNumber / 2)) * OmokPanPointDistance), (float)((yIdx - (OmokPanPointNumber / 2)) * OmokPanPointDistance), -1);
+        point.OmokStone = Instantiate(putObject, stonePos, Quaternion.identity);
+        //point.Type = pointType;
     }
 
     public void ClickMenuButton()
@@ -257,10 +305,65 @@ public class InGameSceenManager : MonoBehaviour
         SceneManager.LoadScene(Common.LobbySceneName);
     }
 
+    public void ClickInfoOkButton()
+    {
+        InfoPanel.SetActive(false);
+    }
+
+    public void NewInfo(string info)
+    {
+        InfoText.text = info;
+
+        InfoPanel.SetActive(true);
+    }
+
     public void NotifyResult(string resultText)
     {
         ResultText.text = resultText;
 
         ResultPanel.SetActive(true);
+    }
+
+    void SendGamePut(int xIdx, int yIdx)
+    {
+        Debug.Log($"SendGamePut x : {xIdx} y : {yIdx}");
+
+        var packetData = new PKTReqGamePut() { ClickPos = (xIdx, yIdx) };
+        var packet = MessagePackSerializer.Serialize(packetData);
+        var sendPacket = PacketDef.PKTHandleHelper.MakePacket((UInt16)PacketDef.ClientGatePacketID.NTFGamePut, packet);
+
+        GameManager.ClientNetworkManager.Send(sendPacket);
+    }
+
+    public void RecvGameInfo(object data)
+    {
+        var packetData = (PKTNTFGameInfo)data;
+
+        Console.WriteLine($"GameInfo Result : [{packetData.Result}]");
+
+        OpponentID = packetData.OpponentID;
+        IsBlack = packetData.IsBlack;
+        IsMyTurn = IsBlack == true ? true : false;
+
+        LoadingPanel.SetActive(false);
+    }
+
+    public void RecvGamePut(object data)
+    {
+        var packetData = (PKTNTFGamePut)data;
+
+        var result = packetData.Result;
+
+        if(result != 0)
+        {
+            NewInfo($"Put Result : [{result.ToString()}]");
+
+            return;
+        }
+
+        var putPos = packetData.PutPos;
+        var type = packetData.Type;
+
+        Put(putPos, type);
     }
 }

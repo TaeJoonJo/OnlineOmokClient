@@ -71,6 +71,13 @@ public class PacketDef
 
         ReqMatching = 111,
         NTFMatchingResult = 112,
+
+        NTFGameInfo = 114,
+
+        ReqGamePut = 120,
+        NTFGamePut = 121,
+
+        NTFGameResult = 125,
         //LobbyAddUser = 109,
         //LobbyDeleteUser = 110,
     }

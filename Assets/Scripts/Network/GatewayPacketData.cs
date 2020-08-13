@@ -8,7 +8,7 @@ namespace GatewayServer.Packet
     #region Client-GatewayServer
 
     [MessagePackObject]
-    public class PKTReqLogin 
+    public class PKTReqLogin
     {
         [Key(0)]
         public String UserID;
@@ -19,7 +19,7 @@ namespace GatewayServer.Packet
     }
 
     [MessagePackObject]
-    public class PKTResLogin 
+    public class PKTResLogin
     {
         [Key(0)]
         public UInt16 Result;
@@ -77,6 +77,42 @@ namespace GatewayServer.Packet
 
     [MessagePackObject]
     public class PKTResRoomEnter
+    {
+        [Key(0)]
+        public UInt16 Result;
+    }
+
+    [MessagePackObject]
+    public class PKTNTFGameInfo
+    {
+        [Key(0)]
+        public UInt16 Result;
+        [Key(1)]
+        public String OpponentID;
+        [Key(2)]
+        public bool IsBlack;
+    }
+
+    [MessagePackObject]
+    public class PKTReqGamePut
+    {
+        [Key(0)]
+        public (int, int) ClickPos;
+    }
+
+    [MessagePackObject]
+    public class PKTNTFGamePut
+    {
+        [Key(0)]
+        public UInt16 Result;
+        [Key(1)]
+        public (int, int) PutPos;
+        [Key(2)]
+        public Byte Type;
+    }
+
+    [MessagePackObject]
+    public class PKTNTFGameResult
     {
         [Key(0)]
         public UInt16 Result;

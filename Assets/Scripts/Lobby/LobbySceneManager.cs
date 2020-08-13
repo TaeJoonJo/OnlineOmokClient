@@ -40,11 +40,10 @@ public class LobbySceneManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameManager.RecvMatchingResult += RecvMatchingResult;
-
-        GameManager.RecvRoomEnter += RecvRoomEnter;
         GameManager.RecvLobbyChat += RecvLobbyChat;
-
+        GameManager.RecvMatchingResult += RecvMatchingResult;
+        
+        GameManager.RecvRoomEnter += RecvRoomEnter;
     }
      
      
@@ -207,6 +206,7 @@ public class LobbySceneManager : MonoBehaviour
         if(result != 0)
         {
             LoadingPanel.SetActive(false);
+            NewInfo("매칭에 실패하였습니다.");
 
             return;
         }
@@ -222,10 +222,12 @@ public class LobbySceneManager : MonoBehaviour
 
         if(result != 0)
         {
-            NewInfo("매칭 실패");
+            NewInfo("방 입장에 실패하였습니다.");
             return;
         }
 
-        LoadingText.text = "다른 플레이어 기다리는 중...";
+        SceneManager.LoadScene(Common.InGameSceneName);
+
+        //LoadingText.text = "다른 플레이어 기다리는 중...";
     }
 }
