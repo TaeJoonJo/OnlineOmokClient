@@ -2026,6 +2026,7 @@ MonoBehaviour:
   LoadingProgress: {fileID: 264315257}
   InfoText: {fileID: 1839908335}
   GameMailInfo: {fileID: 9035306661128124591, guid: 4c37657774985b0498e7266112d2541d, type: 3}
+  LoadingText: {fileID: 2041948930}
 --- !u!114 &842335929
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4036,7 +4037,7 @@ GameObject:
   - component: {fileID: 2041948931}
   - component: {fileID: 2041948930}
   m_Layer: 5
-  m_Name: Text
+  m_Name: LoadingText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
