@@ -17,6 +17,7 @@ public class LobbySceneManager : MonoBehaviour
     public GameObject AttendancePanel;
     public GameObject InfoPanel;
     public GameObject MailPanel;
+    static public GameObject GameInfoPanel;
 
     public GameObject attendanceButton;
     public GameObject closeButton;
@@ -28,9 +29,6 @@ public class LobbySceneManager : MonoBehaviour
     const float RotateSpeed = 200f;
 
     public Text InfoText;
-    public Text mailuser;
-    public Text mailsender;
-
     public ScrollView MailScrollView;
 
     public GameObject GameMailInfo;
@@ -39,6 +37,9 @@ public class LobbySceneManager : MonoBehaviour
     void Start()
     {
         GameManager.RecvMatchingResult += RecvMatchingResult;
+
+       // GameInfoPanel = GameObject.Find("MailUnfoPanel").gameObject;
+       // GameInfoPanel.SetActive(false);
        // GameManager.ClientNetworkManager.GetMail(3);
     }
      
@@ -77,16 +78,6 @@ public class LobbySceneManager : MonoBehaviour
         
     }
 
-    public void Test()
-    {
-        //var mailInfo = new MailInfo();
-        //var mailInfo = new MailInfo();
-
-        var game = Instantiate(GameMailInfo);
-        //MailScrollView.Add()
-        game.transform.SetParent(GameObject.Find("Content").transform);
-    }
-
     public void ClickMenuDisconnectButton()
     {
         // TODO : 서버에 접속종료 요청
@@ -115,6 +106,7 @@ public class LobbySceneManager : MonoBehaviour
         else
         {
             int attendanceResult = GameManager.ClientNetworkManager.AttendanceConfirm((int)userNo);
+            Debug.Log("출석 반환 값 :" +attendanceResult);
             if (attendanceResult == 101) NewInfo("7일차 출석 완료");
             else if (attendanceResult == 0) NewInfo("출석 완료");
             else NewInfo("이미 출석 했습니다.");
@@ -124,12 +116,30 @@ public class LobbySceneManager : MonoBehaviour
     public void ClickMailButton()
     {
         MailPanel.SetActive(true);
-        Debug.Log("사용자 : " + GameManager.ClientNetworkManager.connectedIdx);
-        //GameManager.ClientNetworkManager.GetMail(7);
-       GameManager.ClientNetworkManager.GetMail(GameManager.ClientNetworkManager.connectedIdx);
-      //GameManager.ClientNetworkManager.GetMail(3);
-        mailsender.text  = (GameManager.ClientNetworkManager.mailinfolist[0].SenderNo).ToString();
-        Debug.Log("어째저째 끝남");
+      
+        var mails = GameManager.ClientNetworkManager.GetMails(GameManager.ClientNetworkManager.connectedIdx);
+
+        foreach(var mail in mails)
+        {
+            InsertMailButton(mail);
+        }
+    }
+   
+
+    public static void ClickMailInfoButton()
+    {
+        GameInfoPanel.SetActive(true);
+
+    }
+
+    public void InsertMailButton(MailInfo mailInfo)
+    {
+        var mail = Instantiate(GameMailInfo);
+        var mailInformation = mail.GetComponent<MailInformation>();
+        mailInformation.Init(mailInfo);
+
+
+        mail.transform.SetParent(GameObject.Find("Content").transform);
     }
 
     public void ClickCloseButton()

@@ -46,6 +46,13 @@ namespace APIServer {
         __Marshaller_APIFunc_Account,
         __Marshaller_APIFunc_MailList);
 
+    static readonly grpc::Method<global::APIServer.Account, global::APIServer.Confirm> __Method_GetMailItem = new grpc::Method<global::APIServer.Account, global::APIServer.Confirm>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "GetMailItem",
+        __Marshaller_APIFunc_Account,
+        __Marshaller_APIFunc_Confirm);
+
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
     {
@@ -138,6 +145,22 @@ namespace APIServer {
       public virtual grpc::AsyncUnaryCall<global::APIServer.MailList> MailAsync(global::APIServer.Account request, grpc::CallOptions options)
       {
         return CallInvoker.AsyncUnaryCall(__Method_Mail, null, options, request);
+      }
+      public virtual global::APIServer.Confirm GetMailItem(global::APIServer.Account request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return GetMailItem(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::APIServer.Confirm GetMailItem(global::APIServer.Account request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetMailItem, null, options, request);
+      }
+      public virtual grpc::AsyncUnaryCall<global::APIServer.Confirm> GetMailItemAsync(global::APIServer.Account request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return GetMailItemAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual grpc::AsyncUnaryCall<global::APIServer.Confirm> GetMailItemAsync(global::APIServer.Account request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetMailItem, null, options, request);
       }
       /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
       protected override APIFunctionClient NewInstance(ClientBaseConfiguration configuration)

@@ -27,24 +27,26 @@ namespace APIServer {
             "ChRQcm90b3MvQVBJRnVuYy5wcm90bxIHQVBJRnVuYyIXCgdBY2NvdW50EgwK",
             "BGlkTm8YASABKAUiUAoEVXNlchIKCgJpZBgBIAEoCRIQCghwYXNzd29yZBgC",
             "IAEoCRIQCghuaWNrbmFtZRgDIAEoCRILCgNzZXgYBCABKAUSCwoDYWdlGAUg",
-            "ASgFIksKCE1haWxJbmZvEhAKCHNlbmRlck5vGAEgASgFEg4KBnVzZXJObxgC",
-            "IAEoBRIPCgdjb250ZW50GAMgASgJEgwKBGtpbmQYBCABKAUiLwoITWFpbExp",
-            "c3QSIwoIbWFpbEluZm8YASADKAsyES5BUElGdW5jLk1haWxJbmZvIi0KDExv",
-            "Z2luQ29uZmlybRIPCgdtZXNzYWdlGAEgASgJEgwKBGlkTm8YAiABKAUiGgoH",
-            "Q29uZmlybRIPCgdtZXNzYWdlGAEgASgFMs0BCgtBUElGdW5jdGlvbhIwCg1D",
-            "cmVhdGVBY2NvdW50Eg0uQVBJRnVuYy5Vc2VyGhAuQVBJRnVuYy5Db25maXJt",
-            "Ei0KBUxvZ2luEg0uQVBJRnVuYy5Vc2VyGhUuQVBJRnVuYy5Mb2dpbkNvbmZp",
-            "cm0SMAoKQXR0ZW5kYW5jZRIQLkFQSUZ1bmMuQWNjb3VudBoQLkFQSUZ1bmMu",
-            "Q29uZmlybRIrCgRNYWlsEhAuQVBJRnVuYy5BY2NvdW50GhEuQVBJRnVuYy5N",
-            "YWlsTGlzdEIMqgIJQVBJU2VydmVyYgZwcm90bzM="));
+            "ASgFIncKCE1haWxJbmZvEhAKCHNlbmRlck5vGAEgASgFEg4KBnVzZXJObxgC",
+            "IAEoBRIPCgdjb250ZW50GAMgASgJEgwKBGtpbmQYBCABKAUSFwoPbWFpbFJl",
+            "Y2VpdmVEYXRlGAUgASgJEhEKCWl0ZW1Db3VudBgGIAEoBSIvCghNYWlsTGlz",
+            "dBIjCghtYWlsSW5mbxgBIAMoCzIRLkFQSUZ1bmMuTWFpbEluZm8iLQoMTG9n",
+            "aW5Db25maXJtEg8KB21lc3NhZ2UYASABKAkSDAoEaWRObxgCIAEoBSIaCgdD",
+            "b25maXJtEg8KB21lc3NhZ2UYASABKAUygAIKC0FQSUZ1bmN0aW9uEjAKDUNy",
+            "ZWF0ZUFjY291bnQSDS5BUElGdW5jLlVzZXIaEC5BUElGdW5jLkNvbmZpcm0S",
+            "LQoFTG9naW4SDS5BUElGdW5jLlVzZXIaFS5BUElGdW5jLkxvZ2luQ29uZmly",
+            "bRIwCgpBdHRlbmRhbmNlEhAuQVBJRnVuYy5BY2NvdW50GhAuQVBJRnVuYy5D",
+            "b25maXJtEisKBE1haWwSEC5BUElGdW5jLkFjY291bnQaES5BUElGdW5jLk1h",
+            "aWxMaXN0EjEKC0dldE1haWxJdGVtEhAuQVBJRnVuYy5BY2NvdW50GhAuQVBJ",
+            "RnVuYy5Db25maXJtQgyqAglBUElTZXJ2ZXJiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::APIServer.Account), global::APIServer.Account.Parser, new[]{ "IdNo" },  null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::APIServer.User), global::APIServer.User.Parser, new[]{ "Id", "Password", "Nickname", "Sex", "Age" },  null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::APIServer.MailInfo), global::APIServer.MailInfo.Parser, new[]{ "SenderNo", "UserNo", "Content", "Kind" },  null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::APIServer.Account), global::APIServer.Account.Parser, new[]{ "IdNo" }, null,  null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::APIServer.User), global::APIServer.User.Parser, new[]{ "Id", "Password", "Nickname", "Sex", "Age" },null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::APIServer.MailInfo), global::APIServer.MailInfo.Parser, new[]{ "SenderNo", "UserNo", "Content", "Kind", "MailReceiveDate", "ItemCount" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::APIServer.MailList), global::APIServer.MailList.Parser, new[]{ "MailInfo" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::APIServer.LoginConfirm), global::APIServer.LoginConfirm.Parser, new[]{ "Message", "IdNo" },null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::APIServer.LoginConfirm), global::APIServer.LoginConfirm.Parser, new[]{ "Message", "IdNo" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::APIServer.Confirm), global::APIServer.Confirm.Parser, new[]{ "Message" }, null, null, null)
           }));
     }
@@ -451,6 +453,8 @@ namespace APIServer {
       userNo_ = other.userNo_;
       content_ = other.content_;
       kind_ = other.kind_;
+      mailReceiveDate_ = other.mailReceiveDate_;
+      itemCount_ = other.itemCount_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -503,6 +507,28 @@ namespace APIServer {
       }
     }
 
+    /// <summary>Field number for the "mailReceiveDate" field.</summary>
+    public const int MailReceiveDateFieldNumber = 5;
+    private string mailReceiveDate_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string MailReceiveDate {
+      get { return mailReceiveDate_; }
+      set {
+        mailReceiveDate_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "itemCount" field.</summary>
+    public const int ItemCountFieldNumber = 6;
+    private int itemCount_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int ItemCount {
+      get { return itemCount_; }
+      set {
+        itemCount_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as MailInfo);
@@ -520,6 +546,8 @@ namespace APIServer {
       if (UserNo != other.UserNo) return false;
       if (Content != other.Content) return false;
       if (Kind != other.Kind) return false;
+      if (MailReceiveDate != other.MailReceiveDate) return false;
+      if (ItemCount != other.ItemCount) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -530,6 +558,8 @@ namespace APIServer {
       if (UserNo != 0) hash ^= UserNo.GetHashCode();
       if (Content.Length != 0) hash ^= Content.GetHashCode();
       if (Kind != 0) hash ^= Kind.GetHashCode();
+      if (MailReceiveDate.Length != 0) hash ^= MailReceiveDate.GetHashCode();
+      if (ItemCount != 0) hash ^= ItemCount.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -559,6 +589,14 @@ namespace APIServer {
         output.WriteRawTag(32);
         output.WriteInt32(Kind);
       }
+      if (MailReceiveDate.Length != 0) {
+        output.WriteRawTag(42);
+        output.WriteString(MailReceiveDate);
+      }
+      if (ItemCount != 0) {
+        output.WriteRawTag(48);
+        output.WriteInt32(ItemCount);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -578,6 +616,12 @@ namespace APIServer {
       }
       if (Kind != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(Kind);
+      }
+      if (MailReceiveDate.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(MailReceiveDate);
+      }
+      if (ItemCount != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(ItemCount);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -601,6 +645,12 @@ namespace APIServer {
       }
       if (other.Kind != 0) {
         Kind = other.Kind;
+      }
+      if (other.MailReceiveDate.Length != 0) {
+        MailReceiveDate = other.MailReceiveDate;
+      }
+      if (other.ItemCount != 0) {
+        ItemCount = other.ItemCount;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -627,6 +677,14 @@ namespace APIServer {
           }
           case 32: {
             Kind = input.ReadInt32();
+            break;
+          }
+          case 42: {
+            MailReceiveDate = input.ReadString();
+            break;
+          }
+          case 48: {
+            ItemCount = input.ReadInt32();
             break;
           }
         }

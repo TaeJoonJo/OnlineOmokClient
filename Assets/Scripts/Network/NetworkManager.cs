@@ -18,7 +18,7 @@ public class NetworkManager
     public int connectedIdx = 0;
     public int connectedTempIdx = 0;
     public string connectedId = "";
-    public List<MailInfo> mailinfolist;
+    public List<MailInfo> mailinfolist = new List<MailInfo>();
 
     Socket Socket;
 
@@ -71,13 +71,13 @@ public class NetworkManager
 
     public int AttendanceConfirm(int id)
     {
+        Debug.Log(id);
         var reply = APIConnection.Attendance(new Account { IdNo = id });
         return reply.Message;
 
     }
     public int CreateAccountConfirm(string id, string pw, string nickName, int sex, int age)
     {
-        Debug.Log("회원가입 확인중 ");
         var reply = APIConnection.CreateAccount(new User
         {
             Id = id,
@@ -90,22 +90,17 @@ public class NetworkManager
         else return 1; //실패
     }
     
-    public void GetMail(int id)
+    public void GetItemConfirm(int id)
     {
-        Debug.Log("getmail 들어옴");
-        var reply =  APIConnection.Mail(new Account  { IdNo = id });
-        Debug.Log("메일 수 : "+ reply.MailInfo.Count());
-        Debug.Log(reply.MailInfo[0].UserNo + " "+reply.MailInfo[0].SenderNo + " " + reply.MailInfo[0].Content + " " + reply.MailInfo[0].Kind);
-        /*
-         for(int i = 0; i < reply.MailInfo.Count(); i++)
-         {
-            mailinfolist[i].UserNo = reply.MailInfo[i].UserNo;
-            mailinfolist[i].SenderNo = reply.MailInfo[i].SenderNo;
-            mailinfolist[i].Content = reply.MailInfo[i].Content;
-            mailinfolist[i].Kind = reply.MailInfo[i].Kind;
-        }*/
-        // reply.MailInfo[0].SenderNo.ToString();
+        var reply = APIConnection.GetMailItem(new Account { IdNo = id });
+        //Debug.Log(reply.Message);
+    }
 
+    public List<MailInfo> GetMails(int id)
+    {
+        var reply = APIConnection.Mail(new Account { IdNo = id });
+
+        return reply.MailInfo.ToList();
     }
 
     public bool Connect(string ip, int port)
