@@ -18,6 +18,8 @@ namespace APIServer {
     static readonly grpc::Marshaller<global::APIServer.Account> __Marshaller_APIFunc_Account = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::APIServer.Account.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::APIServer.MailList> __Marshaller_APIFunc_MailList = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::APIServer.MailList.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::APIServer.ItemInfo> __Marshaller_APIFunc_ItemInfo = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::APIServer.ItemInfo.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::APIServer.AccountNickname> __Marshaller_APIFunc_AccountNickname = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::APIServer.AccountNickname.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::APIServer.FriendInfo> __Marshaller_APIFunc_FriendInfo = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::APIServer.FriendInfo.Parser.ParseFrom);
 
     static readonly grpc::Method<global::APIServer.User, global::APIServer.Confirm> __Method_CreateAccount = new grpc::Method<global::APIServer.User, global::APIServer.Confirm>(
         grpc::MethodType.Unary,
@@ -52,6 +54,20 @@ namespace APIServer {
         __ServiceName,
         "GetMailItem",
         __Marshaller_APIFunc_ItemInfo,
+        __Marshaller_APIFunc_Confirm);
+
+    static readonly grpc::Method<global::APIServer.AccountNickname, global::APIServer.Confirm> __Method_FriendFind = new grpc::Method<global::APIServer.AccountNickname, global::APIServer.Confirm>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "FriendFind",
+        __Marshaller_APIFunc_AccountNickname,
+        __Marshaller_APIFunc_Confirm);
+
+    static readonly grpc::Method<global::APIServer.FriendInfo, global::APIServer.Confirm> __Method_FriendApply = new grpc::Method<global::APIServer.FriendInfo, global::APIServer.Confirm>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "FriendApply",
+        __Marshaller_APIFunc_FriendInfo,
         __Marshaller_APIFunc_Confirm);
 
     /// <summary>Service descriptor</summary>
@@ -162,6 +178,38 @@ namespace APIServer {
       public virtual grpc::AsyncUnaryCall<global::APIServer.Confirm> GetMailItemAsync(global::APIServer.ItemInfo request, grpc::CallOptions options)
       {
         return CallInvoker.AsyncUnaryCall(__Method_GetMailItem, null, options, request);
+      }
+      public virtual global::APIServer.Confirm FriendFind(global::APIServer.AccountNickname request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return FriendFind(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::APIServer.Confirm FriendFind(global::APIServer.AccountNickname request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_FriendFind, null, options, request);
+      }
+      public virtual grpc::AsyncUnaryCall<global::APIServer.Confirm> FriendFindAsync(global::APIServer.AccountNickname request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return FriendFindAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual grpc::AsyncUnaryCall<global::APIServer.Confirm> FriendFindAsync(global::APIServer.AccountNickname request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_FriendFind, null, options, request);
+      }
+      public virtual global::APIServer.Confirm FriendApply(global::APIServer.FriendInfo request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return FriendApply(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::APIServer.Confirm FriendApply(global::APIServer.FriendInfo request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_FriendApply, null, options, request);
+      }
+      public virtual grpc::AsyncUnaryCall<global::APIServer.Confirm> FriendApplyAsync(global::APIServer.FriendInfo request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return FriendApplyAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual grpc::AsyncUnaryCall<global::APIServer.Confirm> FriendApplyAsync(global::APIServer.FriendInfo request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_FriendApply, null, options, request);
       }
       /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
       protected override APIFunctionClient NewInstance(ClientBaseConfiguration configuration)

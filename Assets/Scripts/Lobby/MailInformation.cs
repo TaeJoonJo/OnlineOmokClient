@@ -15,6 +15,7 @@ public class MailInformation : MonoBehaviour
     public Text ContentText;
     public Text MailReceiveDateText;
     public Text InMailReceiveDateText;
+    public Text SenderNameText;
     public Text GetItemText;
     public Button CloseButton;
     public Button ReceiveButton;
@@ -27,18 +28,26 @@ public class MailInformation : MonoBehaviour
 
     int ItemKind;
     int ItemCount;
-
+    int mailIndex;
     string MailReceiveDate;
 
     public void Init(MailInfo mailInfo)
     {
         // SenderName = mailInfo.SenderNo;
+
         Content = mailInfo.Content;
         ItemKind = mailInfo.Kind;
         ItemCount = mailInfo.ItemCount;
         MailReceiveDate = mailInfo.MailReceiveDate;
-
-
+        mailIndex = mailInfo.MailIdx;
+        if (mailInfo.SenderNo == 0) SenderName = "관리자";
+        /*
+        else
+        {
+            //레디스
+        }
+        */
+        SenderNameText.text = SenderName;
         MailReceiveDateText.text = MailReceiveDate;
         InMailReceiveDateText.text = MailReceiveDate;
         //SenderNameText.text = Content;
@@ -71,7 +80,7 @@ public class MailInformation : MonoBehaviour
 
     public void OnClickReceiveButton()
     {
-        var reply = GameManager.ClientNetworkManager.GetItemConfirm(GameManager.ClientNetworkManager.connectedIdx, ItemKind, ItemCount);
+        var reply = GameManager.ClientNetworkManager.GetItemConfirm(GameManager.ClientNetworkManager.connectedIdx, ItemKind, ItemCount, mailIndex);
         Debug.Log(reply);
         if (reply == 0) NewInfo("아이템을 수령하였습니다. ");
         else NewInfo("다시 시도해주세요");

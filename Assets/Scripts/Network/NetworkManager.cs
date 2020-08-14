@@ -89,15 +89,36 @@ public class NetworkManager
         else return 1; //실패
     }
     
-    public int GetItemConfirm(int id, int itemId , int itemCount)
+    public int GetItemConfirm(int id, int itemId , int itemCount , int mailIndex)
     {
         var reply = APIConnection.GetMailItem(new ItemInfo
-        { 
+        {
             UserNo = id,
             ItemId = itemId,
-            ItemCount = itemCount
+            ItemCount = itemCount,
+            MailIdx = mailIndex
         });
 
+        return reply.Message;
+    }
+    
+    public int FindFriendConfirm(string nickname)
+    {
+        var reply = APIConnection.FriendFind(new AccountNickname
+        {
+            Nickname = nickname
+        });
+        return reply.Message;
+
+    }
+
+    public int FriendApplyConfirm(int friendno)
+    {
+        var reply = APIConnection.FriendApply(new FriendInfo
+        {
+            Userno = connectedIdx,
+            Friendno = friendno
+        });
         return reply.Message;
     }
 

@@ -18,13 +18,9 @@ public class LobbySceneManager : MonoBehaviour
     public GameObject InfoPanel;
     public GameObject MailPanel;
     public GameObject MailResultPanel;
+    public GameObject FriendApplyPanel;
+    public GameObject FriendApplyConfirmPanel;
     static public GameObject GameInfoPanel;
-
-    public GameObject attendanceButton;
-    public GameObject closeButton;
-    public GameObject attendanceConfirmButton;
-    public GameObject mailButton;
-
 
     public GameObject LoadingPanel;
     public RectTransform LoadingProgress;
@@ -37,6 +33,9 @@ public class LobbySceneManager : MonoBehaviour
 
     public Text LoadingText;
     public Text MailResultText;
+    public Text FriendApplyConfirmText;
+    public InputField UserFindTextField;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -129,6 +128,10 @@ public class LobbySceneManager : MonoBehaviour
         }
     }
    
+    public void OnClickMailPanelCloseButton()
+    {
+        MailPanel.SetActive(false);
+    }
 
     public static void ClickMailInfoButton()
     {
@@ -142,7 +145,6 @@ public class LobbySceneManager : MonoBehaviour
         var mailInformation = mail.GetComponent<MailInformation>();
         mailInformation.Init(mailInfo);
 
-
         mail.transform.SetParent(GameObject.Find("Contents").transform);
     }
 
@@ -151,10 +153,42 @@ public class LobbySceneManager : MonoBehaviour
         AttendancePanel.SetActive(false);
     }
 
+    public void OnClickFriendApplyButton()
+    {
+        FriendApplyPanel.SetActive(true);
+    }
+
+    public void OnClickFriendApplyPanelCloseButton()
+    {
+        FriendApplyPanel.SetActive(false);
+    }
+
+    public void OnClickInFriendApplyButton()
+    {
+        string nickname = UserFindTextField.text;
+        var result = GameManager.ClientNetworkManager.FindFriendConfirm(nickname);
+
+        if (result == 102) NewInfo("존재하지 않는 유저입니다.");
+        else 
+        {
+            var applyresult = GameManager.ClientNetworkManager.FriendApplyConfirm(result);
+
+            if (applyresult==0) NewInfo("신청완료");
+            else NewInfo("이미 친구입니다.");
+        }
+
+    }
+    public void FriendApplyConfirmInfo(string infoString)
+    {
+         FriendApplyConfirmText.text = infoString;
+         FriendApplyPanel.SetActive(true);
+    }
+
     public void NewInfo(string infoString) { 
         InfoText.text = infoString;
         InfoPanel.SetActive(true);
     }
+
 
     public void ClickInfoOk()
     {

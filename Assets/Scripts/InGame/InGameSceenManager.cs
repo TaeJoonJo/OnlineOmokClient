@@ -330,7 +330,7 @@ public class InGameSceenManager : MonoBehaviour
 
         var packetData = new PKTReqGamePut() { ClickPos = (xIdx, yIdx) };
         var packet = MessagePackSerializer.Serialize(packetData);
-        var sendPacket = PacketDef.PKTHandleHelper.MakePacket((UInt16)PacketDef.ClientGatePacketID.NTFGamePut, packet);
+        var sendPacket = PacketDef.PKTHandleHelper.MakePacket((UInt16)PacketDef.ClientGatePacketID.ReqGamePut, packet);
 
         GameManager.ClientNetworkManager.Send(sendPacket);
     }

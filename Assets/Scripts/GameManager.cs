@@ -119,7 +119,8 @@ public class GameManager : MonoBehaviour
                     {
                         Debug.Log("Recv NTFGameInfo");
                         var packet = MessagePackSerializer.Deserialize<GatewayServer.Packet.PKTNTFGameInfo>(packetData.PacketBody);
-                        
+
+                        StartCoroutine(Sleep());
                         RecvGameInfo(packet);
                     } break;
                 case PacketDef.ClientGatePacketID.NTFGamePut:
@@ -134,6 +135,12 @@ public class GameManager : MonoBehaviour
                         /// TODO
                     } break;
             }
+
         }
+    }
+
+    IEnumerator Sleep()
+    {
+        yield return new WaitForSeconds(5f);
     }
 }

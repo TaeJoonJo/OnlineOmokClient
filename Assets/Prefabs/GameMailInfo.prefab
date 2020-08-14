@@ -1252,7 +1252,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 6, y: 201}
-  m_SizeDelta: {x: 949.3, y: 80}
+  m_SizeDelta: {x: 1056.81, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9035306661128124579
 CanvasRenderer:
@@ -1384,6 +1384,7 @@ MonoBehaviour:
   ContentText: {fileID: 4417728032122198471}
   MailReceiveDateText: {fileID: 9035306662829942942}
   InMailReceiveDateText: {fileID: 5786702973033589401}
+  SenderNameText: {fileID: 9035306661810520453}
   GetItemText: {fileID: 7042537196208756472}
   CloseButton: {fileID: 5573239440928903582}
   ReceiveButton: {fileID: 6293736116543273088}
