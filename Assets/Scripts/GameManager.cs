@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     public static PacketFunc RecvRoomEnter;
     public static PacketFunc RecvGameInfo;
     public static PacketFunc RecvGamePut;
-    //public static PacketFunc RecvGameResult;
+    public static PacketFunc RecvGameResult;
 
     public static NetworkManager ClientNetworkManager;
 
@@ -125,17 +125,23 @@ public class GameManager : MonoBehaviour
                     } break;
                 case PacketDef.ClientGatePacketID.NTFGamePut:
                     {
-                        /// TODO
                         var packet = MessagePackSerializer.Deserialize<GatewayServer.Packet.PKTNTFGamePut>(packetData.PacketBody);
 
                         RecvGamePut(packet);
                     } break;
                 case PacketDef.ClientGatePacketID.NTFGameResult:
                     {
-                        /// TODO
+                        var packet = MessagePackSerializer.Deserialize<GatewayServer.Packet.PKTNTFGameResult>(packetData.PacketBody);
+
+                        RecvGameResult(packet.Result);
                     } break;
             }
 
+        }
+        
+        IEnumerator Sleep()
+        {
+            yield return new WaitForSeconds(5f);
         }
     }
 

@@ -48,6 +48,13 @@ public class InGameSceenManager : MonoBehaviour
 
     string OpponentID;
 
+    public Text OpponentIDText;
+    public Text MyIDText;
+
+    public Text TurnText;
+
+    public GameObject AppearEffectObject;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -70,6 +77,7 @@ public class InGameSceenManager : MonoBehaviour
 
         GameManager.RecvGameInfo += RecvGameInfo;
         GameManager.RecvGamePut += RecvGamePut;
+        GameManager.RecvGameResult += RecvGameResult;
     }
 
     // Update is called once per frame
@@ -264,20 +272,27 @@ public class InGameSceenManager : MonoBehaviour
 
         GameObject putObject = null;
 
+        AppearEffectObject.SetActive(true);
+
         switch (type)
         {
             case 1:
                 {
+                    IsMyTurn = IsBlack == true ? false : true;
                     putObject = BlackStone;
                 } break;
             case 2:
                 {
+                    IsMyTurn = IsBlack == true ? true : false;
                     putObject = WhiteStone;
                 } break;
         }
 
         Vector3 stonePos = new Vector3((float)((xIdx - (OmokPanPointNumber / 2)) * OmokPanPointDistance), (float)((yIdx - (OmokPanPointNumber / 2)) * OmokPanPointDistance), -1);
+        AppearEffectObject.transform.position = stonePos;
         point.OmokStone = Instantiate(putObject, stonePos, Quaternion.identity);
+
+        TurnOut(IsMyTurn);
         //point.Type = pointType;
     }
 
@@ -324,6 +339,20 @@ public class InGameSceenManager : MonoBehaviour
         ResultPanel.SetActive(true);
     }
 
+    void TurnOut(bool isMyTurn)
+    {
+        if(isMyTurn == true)
+        {
+            TurnText.text = "내 턴";
+            TurnText.color = new Color(50f, 50f, 255f);
+        }
+        else
+        {
+            TurnText.text = "상대 턴";
+            TurnText.color = new Color(255f, 50f, 50f);
+        }
+    }
+
     void SendGamePut(int xIdx, int yIdx)
     {
         Debug.Log($"SendGamePut x : {xIdx} y : {yIdx}");
@@ -335,7 +364,7 @@ public class InGameSceenManager : MonoBehaviour
         GameManager.ClientNetworkManager.Send(sendPacket);
     }
 
-    public void RecvGameInfo(object data)
+    void RecvGameInfo(object data)
     {
         var packetData = (PKTNTFGameInfo)data;
 
@@ -345,18 +374,38 @@ public class InGameSceenManager : MonoBehaviour
         IsBlack = packetData.IsBlack;
         IsMyTurn = IsBlack == true ? true : false;
 
+        OpponentIDText.text = OpponentID;
+        MyIDText.text = GameManager.UserInfo.UserID;
+
         LoadingPanel.SetActive(false);
     }
 
-    public void RecvGamePut(object data)
+    void RecvGamePut(object data)
     {
         var packetData = (PKTNTFGamePut)data;
 
         var result = packetData.Result;
 
+        switch (result)
+        {
+            case 2030:
+                {
+                    NewInfo("돌이 있는 곳엔 둘 수 없습니다.");
+                } break;
+            case 2031:
+                {
+                    NewInfo("상대의 차례입니다.");
+                } break;
+            case 2032:
+                {
+                    NewInfo("삼삼은 금지입니다 ^_^");
+                }
+                break;
+        }
+
         if(result != 0)
         {
-            NewInfo($"Put Result : [{result.ToString()}]");
+            Debug.Log($"Put Fail Result : [{result.ToString()}]");
 
             return;
         }
@@ -365,5 +414,23 @@ public class InGameSceenManager : MonoBehaviour
         var type = packetData.Type;
 
         Put(putPos, type);
+    }
+
+    void RecvGameResult(object data)
+    {
+        var result = (UInt16)data;
+
+        switch (result)
+        {
+            case 2035:  // Black Win
+                {
+                    NotifyResult("흑돌이 승리하였습니다!");
+                } break;
+            case 2036:  // White Win
+                {
+                    NotifyResult("백돌이 승리하였습니다!");
+                } break;
+        }
+        
     }
 }

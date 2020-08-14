@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 public struct UserInfo
 {
-    public string UserID;
+    public string UserID { get; set; }
 
-    public string AuthToken;
+    public string AuthToken { get; set; }
 
-    public string UserNickName;
+    public string UserNickName { get; set; }
 }
 
