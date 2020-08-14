@@ -289,7 +289,7 @@ public class InGameSceenManager : MonoBehaviour
         }
 
         Vector3 stonePos = new Vector3((float)((xIdx - (OmokPanPointNumber / 2)) * OmokPanPointDistance), (float)((yIdx - (OmokPanPointNumber / 2)) * OmokPanPointDistance), -1);
-        AppearEffectObject.transform.position = stonePos;
+        AppearEffectObject.transform.position = stonePos - new Vector3(0f, 0f, 2f);
         point.OmokStone = Instantiate(putObject, stonePos, Quaternion.identity);
 
         TurnOut(IsMyTurn);
@@ -344,12 +344,12 @@ public class InGameSceenManager : MonoBehaviour
         if(isMyTurn == true)
         {
             TurnText.text = "내 턴";
-            TurnText.color = new Color(50f, 50f, 255f);
+            TurnText.color = new Color(50f / 255f, 50f / 255f, 255f / 255f);
         }
         else
         {
             TurnText.text = "상대 턴";
-            TurnText.color = new Color(255f, 50f, 50f);
+            TurnText.color = new Color(255f / 255f, 50f / 255f, 50f / 255f);
         }
     }
 
@@ -373,6 +373,8 @@ public class InGameSceenManager : MonoBehaviour
         OpponentID = packetData.OpponentID;
         IsBlack = packetData.IsBlack;
         IsMyTurn = IsBlack == true ? true : false;
+
+        TurnOut(IsMyTurn);
 
         OpponentIDText.text = OpponentID;
         MyIDText.text = GameManager.UserInfo.UserID;

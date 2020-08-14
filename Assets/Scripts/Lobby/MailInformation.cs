@@ -31,9 +31,12 @@ public class MailInformation : MonoBehaviour
     int mailIndex;
     string MailReceiveDate;
 
+    bool IsReceive;
+
     public void Init(MailInfo mailInfo)
     {
         // SenderName = mailInfo.SenderNo;
+        IsReceive = true;
 
         Content = mailInfo.Content;
         ItemKind = mailInfo.Kind;
@@ -67,23 +70,38 @@ public class MailInformation : MonoBehaviour
 
     public void OnClickClose()
     {
-       //InfoPanel.transform.SetParent(transform);
+        InfoPanel.transform.SetParent(transform);
         InfoPanel.SetActive(false);
     }
     
     //여기서 프리팹도 없어져야 함 ㅠ ㅠ
     public void OnClickGetItemCloseButton()
     {
+        InfoPanel.transform.SetParent(transform);
         InfoPanel.SetActive(false);
+
+        GetItemPanel.transform.SetParent(transform);
         GetItemPanel.SetActive(false);
+
+        if(IsReceive == true)
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void OnClickReceiveButton()
     {
         var reply = GameManager.ClientNetworkManager.GetItemConfirm(GameManager.ClientNetworkManager.connectedIdx, ItemKind, ItemCount, mailIndex);
         Debug.Log(reply);
-        if (reply == 0) NewInfo("아이템을 수령하였습니다. ");
-        else NewInfo("다시 시도해주세요");
+        if (reply == 0)
+        {
+            NewInfo("아이템을 수령하였습니다. ");
+            IsReceive = true;
+        }
+        else
+        {
+            NewInfo("다시 시도해주세요");
+        }
     }
 
     public void NewInfo(string infoString)

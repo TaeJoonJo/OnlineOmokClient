@@ -122,6 +122,8 @@ public class LobbySceneManager : MonoBehaviour
       
         var mails = GameManager.ClientNetworkManager.GetMails(GameManager.ClientNetworkManager.connectedIdx);
 
+        Debug.Log(mails.Count);
+
         foreach(var mail in mails)
         {
             InsertMailButton(mail);
@@ -144,6 +146,8 @@ public class LobbySceneManager : MonoBehaviour
         var mail = Instantiate(GameMailInfo);
         var mailInformation = mail.GetComponent<MailInformation>();
         mailInformation.Init(mailInfo);
+
+        Debug.Log(mailInfo);
 
         mail.transform.SetParent(GameObject.Find("Contents").transform);
     }
