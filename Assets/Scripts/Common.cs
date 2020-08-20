@@ -14,7 +14,6 @@ public class Common : MonoBehaviour
 
     public const string GatewayServerIP = "10.14.1.188";
     public const int GatewayServerPort = 11101;
-
     
     #endregion
 }

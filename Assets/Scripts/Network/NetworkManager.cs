@@ -55,6 +55,16 @@ public class NetworkManager
 
     public void initGrpc()
     {
+        //string address = null;
+
+        //if(ip != null)
+        //{
+        //    address = $"{ip}:{port.ToString()}";
+        //}
+        //else
+        //{
+        //    address = Common.APIServerAddress;
+        //}
         var channel = new Channel(Common.APIServerAddress, ChannelCredentials.Insecure);
 
         APIConnection = new APIFunction.APIFunctionClient(channel);

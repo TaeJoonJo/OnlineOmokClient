@@ -390,15 +390,15 @@ public class InGameSceenManager : MonoBehaviour
 
         switch (result)
         {
-            case 2030:
+            case 3030:
                 {
                     NewInfo("돌이 있는 곳엔 둘 수 없습니다.");
                 } break;
-            case 2031:
+            case 3031:
                 {
                     NewInfo("상대의 차례입니다.");
                 } break;
-            case 2032:
+            case 3032:
                 {
                     NewInfo("삼삼은 금지입니다 ^_^");
                 }
@@ -424,11 +424,11 @@ public class InGameSceenManager : MonoBehaviour
 
         switch (result)
         {
-            case 2035:  // Black Win
+            case 3035:  // Black Win
                 {
                     NotifyResult("흑돌이 승리하였습니다!");
                 } break;
-            case 2036:  // White Win
+            case 3036:  // White Win
                 {
                     NotifyResult("백돌이 승리하였습니다!");
                 } break;

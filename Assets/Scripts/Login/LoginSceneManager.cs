@@ -27,6 +27,14 @@ public class LoginSceneManager : MonoBehaviour
 
     string LastInfoString;
 
+    public GameObject OptionPanel;
+
+    public InputField APIIPInputField;
+    public InputField GatewayIPInputField;
+
+    string APIIP;
+    string GatewayIP;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -55,7 +63,18 @@ public class LoginSceneManager : MonoBehaviour
         if (tokenValue != "102")
         {
             GameManager.UserInfo.AuthToken = tokenValue;
-            GameManager.ClientNetworkManager.Connect(Common.GatewayServerIP, Common.GatewayServerPort);
+
+            string gwIP = null;
+            if(GatewayIP != null)
+            {
+                gwIP = GatewayIP;
+            }
+            else
+            {
+                gwIP = Common.GatewayServerIP;
+            }
+
+            GameManager.ClientNetworkManager.Connect(gwIP, Common.GatewayServerPort);
             SendLogin(GameManager.ClientNetworkManager.connectedTempIdx, userID, tokenValue);
         }
         else
@@ -124,6 +143,18 @@ public class LoginSceneManager : MonoBehaviour
     public void ClickInfoOk()
     {
         InfoPanel.SetActive(false);
+    }
+
+    public void ClickOption()
+    {
+        OptionPanel.SetActive(true);
+    }
+
+    public void ClickOptionOK()
+    {
+        GatewayIP = GatewayIPInputField.text;
+
+        OptionPanel.SetActive(false);
     }
 
     public void NewInfo(string infoString)
