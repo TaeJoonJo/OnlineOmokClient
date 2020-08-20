@@ -44,18 +44,11 @@ public class MailInformation : MonoBehaviour
         MailReceiveDate = mailInfo.MailReceiveDate;
         mailIndex = mailInfo.MailIdx;
         if (mailInfo.SenderNo == 0) SenderName = "관리자";
-        /*
-        else
-        {
-            //레디스
-        }
-        */
+
         SenderNameText.text = SenderName;
         MailReceiveDateText.text = MailReceiveDate;
         InMailReceiveDateText.text = MailReceiveDate;
-        //SenderNameText.text = Content;
 
-        //InSenderNameText.text = SenderName;
         ContentText.text = Content;
     }
 
@@ -70,7 +63,9 @@ public class MailInformation : MonoBehaviour
 
     public void OnClickClose()
     {
+
         InfoPanel.transform.SetParent(transform);
+
         InfoPanel.SetActive(false);
     }
     

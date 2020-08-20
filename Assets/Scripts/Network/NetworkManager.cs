@@ -88,7 +88,12 @@ public class NetworkManager
         if (reply.Message == 0) return 0; //성공
         else return 1; //실패
     }
-    
+    public GameRecordResult GetGameRecordConfirm(int id)
+    {
+        var reply = APIConnection.UserGameRecord(new Account { IdNo = id});
+        return (new GameRecordResult { VictoryCount = reply.VictoryCount, DefeatCount = reply.DefeatCount });
+        
+    }
     public int GetItemConfirm(int id, int itemId , int itemCount , int mailIndex)
     {
         var reply = APIConnection.GetMailItem(new ItemInfo
@@ -125,8 +130,13 @@ public class NetworkManager
     public List<MailInfo> GetMails(int id)
     {
         var reply = APIConnection.Mail(new Account { IdNo = id });
-
         return reply.MailInfo.ToList();
+    }
+
+    public List<FriendNicknameInfo> GetFriendList(int id)
+    {
+        var reply = APIConnection.FriendListForm(new Account { IdNo = id });
+        return reply.Friendnicknameinfo.ToList();
     }
 
     public bool Connect(string ip, int port)

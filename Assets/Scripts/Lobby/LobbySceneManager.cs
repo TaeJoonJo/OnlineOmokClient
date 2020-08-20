@@ -21,6 +21,7 @@ public class LobbySceneManager : MonoBehaviour
     public GameObject FriendApplyPanel;
     public GameObject FriendApplyConfirmPanel;
     static public GameObject GameInfoPanel;
+    public GameObject FriendListPanel;
 
     public GameObject LoadingPanel;
     public RectTransform LoadingProgress;
@@ -30,9 +31,12 @@ public class LobbySceneManager : MonoBehaviour
     public ScrollView MailScrollView;
 
     public GameObject GameMailInfo;
+    public GameObject FriendNicknameInfoPanel;
 
     public Text LoadingText;
     public Text MailResultText;
+    public Text VictoryRecordText;
+    public Text DefeatRecordText;
     public Text FriendApplyConfirmText;
     public InputField UserFindTextField;
 
@@ -43,6 +47,9 @@ public class LobbySceneManager : MonoBehaviour
         GameManager.RecvMatchingResult += RecvMatchingResult;
         
         GameManager.RecvRoomEnter += RecvRoomEnter;
+
+        VictoryRecordText.text = GameManager.UserInfo.UserVictoryCount.ToString() + "승";
+        DefeatRecordText.text = GameManager.UserInfo.UserDefeatCount.ToString() + "패";
     }
      
      
@@ -115,6 +122,25 @@ public class LobbySceneManager : MonoBehaviour
             else NewInfo("이미 출석 했습니다.");
         }
     }
+    public void ClickFriendListButton()
+    {
+        FriendListPanel.SetActive(true);
+
+        var friends = GameManager.ClientNetworkManager.GetFriendList(GameManager.ClientNetworkManager.connectedIdx);
+        foreach (var friend in friends)
+        {
+            InsertFriendButton(friend);
+        }
+    }
+
+    public void InsertFriendButton(FriendNicknameInfo friendnicknameInfo)
+    {
+        var friend = Instantiate(FriendNicknameInfoPanel);
+        var friendInformation = friend.GetComponent<FriendInformation>();
+        friendInformation.Init(friendnicknameInfo);
+
+        friend.transform.SetParent(GameObject.Find("FriendListContents").transform);
+    }
 
     public void ClickMailButton()
     {
@@ -122,7 +148,6 @@ public class LobbySceneManager : MonoBehaviour
       
         var mails = GameManager.ClientNetworkManager.GetMails(GameManager.ClientNetworkManager.connectedIdx);
 
-        Debug.Log(mails.Count);
 
         foreach(var mail in mails)
         {
@@ -155,6 +180,15 @@ public class LobbySceneManager : MonoBehaviour
     public void ClickCloseButton()
     {
         AttendancePanel.SetActive(false);
+    }
+    public void OnClickFriendListButton()
+    {
+        FriendListPanel.SetActive(true);
+    }
+
+    public void OnClickFriendListCloseButton()
+    {
+        FriendListPanel.SetActive(false);
     }
 
     public void OnClickFriendApplyButton()

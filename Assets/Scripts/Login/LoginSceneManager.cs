@@ -169,8 +169,12 @@ public class LoginSceneManager : MonoBehaviour
 
         GameManager.ClientNetworkManager.connectedId = IDInputField.text;
 
-
         GameManager.UserInfo.UserID = IDInputField.text;
+        
+        var temp = GameManager.ClientNetworkManager.GetGameRecordConfirm(GameManager.ClientNetworkManager.connectedTempIdx);
+
+        GameManager.UserInfo.UserVictoryCount = temp.VictoryCount;
+        GameManager.UserInfo.UserDefeatCount = temp.VictoryCount;
 
         //SceneManager.LoadScene(Common.LobbySceneName);
         SendLobbyEnter();

@@ -13,5 +13,9 @@ public struct UserInfo
     public string AuthToken { get; set; }
 
     public string UserNickName { get; set; }
+
+    public int UserVictoryCount { get; set; }
+
+    public int UserDefeatCount { get; set; }
 }
 

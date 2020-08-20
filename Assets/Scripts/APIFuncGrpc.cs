@@ -20,6 +20,8 @@ namespace APIServer {
     static readonly grpc::Marshaller<global::APIServer.ItemInfo> __Marshaller_APIFunc_ItemInfo = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::APIServer.ItemInfo.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::APIServer.AccountNickname> __Marshaller_APIFunc_AccountNickname = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::APIServer.AccountNickname.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::APIServer.FriendInfo> __Marshaller_APIFunc_FriendInfo = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::APIServer.FriendInfo.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::APIServer.FriendList> __Marshaller_APIFunc_FriendList = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::APIServer.FriendList.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::APIServer.GameRecordResult> __Marshaller_APIFunc_GameRecordResult = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::APIServer.GameRecordResult.Parser.ParseFrom);
 
     static readonly grpc::Method<global::APIServer.User, global::APIServer.Confirm> __Method_CreateAccount = new grpc::Method<global::APIServer.User, global::APIServer.Confirm>(
         grpc::MethodType.Unary,
@@ -69,6 +71,20 @@ namespace APIServer {
         "FriendApply",
         __Marshaller_APIFunc_FriendInfo,
         __Marshaller_APIFunc_Confirm);
+
+    static readonly grpc::Method<global::APIServer.Account, global::APIServer.FriendList> __Method_FriendListForm = new grpc::Method<global::APIServer.Account, global::APIServer.FriendList>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "FriendListForm",
+        __Marshaller_APIFunc_Account,
+        __Marshaller_APIFunc_FriendList);
+
+    static readonly grpc::Method<global::APIServer.Account, global::APIServer.GameRecordResult> __Method_UserGameRecord = new grpc::Method<global::APIServer.Account, global::APIServer.GameRecordResult>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "UserGameRecord",
+        __Marshaller_APIFunc_Account,
+        __Marshaller_APIFunc_GameRecordResult);
 
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -210,6 +226,38 @@ namespace APIServer {
       public virtual grpc::AsyncUnaryCall<global::APIServer.Confirm> FriendApplyAsync(global::APIServer.FriendInfo request, grpc::CallOptions options)
       {
         return CallInvoker.AsyncUnaryCall(__Method_FriendApply, null, options, request);
+      }
+      public virtual global::APIServer.FriendList FriendListForm(global::APIServer.Account request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return FriendListForm(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::APIServer.FriendList FriendListForm(global::APIServer.Account request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_FriendListForm, null, options, request);
+      }
+      public virtual grpc::AsyncUnaryCall<global::APIServer.FriendList> FriendListFormAsync(global::APIServer.Account request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return FriendListFormAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual grpc::AsyncUnaryCall<global::APIServer.FriendList> FriendListFormAsync(global::APIServer.Account request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_FriendListForm, null, options, request);
+      }
+      public virtual global::APIServer.GameRecordResult UserGameRecord(global::APIServer.Account request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return UserGameRecord(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::APIServer.GameRecordResult UserGameRecord(global::APIServer.Account request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_UserGameRecord, null, options, request);
+      }
+      public virtual grpc::AsyncUnaryCall<global::APIServer.GameRecordResult> UserGameRecordAsync(global::APIServer.Account request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return UserGameRecordAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual grpc::AsyncUnaryCall<global::APIServer.GameRecordResult> UserGameRecordAsync(global::APIServer.Account request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_UserGameRecord, null, options, request);
       }
       /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
       protected override APIFunctionClient NewInstance(ClientBaseConfiguration configuration)
