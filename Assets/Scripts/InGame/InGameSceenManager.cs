@@ -21,6 +21,9 @@ public class InGameSceenManager : MonoBehaviour
     public const float StoneMinY = (int)(OmokPanPointNumber / -2) * OmokPanPointDistance;
     public const float StoneMaxY = (int)(OmokPanPointNumber / 2) * OmokPanPointDistance;
 
+    Color OpponentTextColor = new Color(255f / 255f, 50f / 255f, 50f / 255f);
+    Color MyTextColor = new Color(50f / 255f, 50f / 255f, 255f / 255f);
+
     public float CameraMovePower = 5f;
 
     public Camera MainCamera;
@@ -33,7 +36,6 @@ public class InGameSceenManager : MonoBehaviour
     public GameObject BlackStone;
     public GameObject WhiteStone;
 
-    //KeyValuePair<float, float>[,] OmokPanLocation;
     OmokPanPoint[,] OmokPanPoints;
 
     bool IsBlack = true;
@@ -51,6 +53,9 @@ public class InGameSceenManager : MonoBehaviour
     public Text OpponentIDText;
     public Text MyIDText;
 
+    public Text MyGameRecordText;
+    public Text OpponentGameRecordText;
+
     public Text TurnText;
 
     public GameObject AppearEffectObject;
@@ -58,7 +63,6 @@ public class InGameSceenManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //OmokPanLocation = new KeyValuePair<float, float>[OmokPanDotNumber, OmokPanDotNumber];
         OmokPanPoints = new OmokPanPoint[OmokPanPointNumber, OmokPanPointNumber];
 
         int x = 0, y = 0;
@@ -66,8 +70,6 @@ public class InGameSceenManager : MonoBehaviour
         {
             for(int xL = (int)(OmokPanPointNumber / -2); xL <= (int)(OmokPanPointNumber / 2); ++xL)
             {
-                //Debug.Log(yL * OmokPanPointDistance + ", " + xL * OmokPanPointDistance);
-                //OmokPanLocation[y, x] = new KeyValuePair<float, float>(yL * OmokPanDotDistance, xL * OmokPanDotDistance);
                 OmokPanPoints[y, x] = new OmokPanPoint(new Vector2(yL * OmokPanPointDistance, xL * OmokPanPointDistance));
                 ++x;
             }
@@ -78,6 +80,8 @@ public class InGameSceenManager : MonoBehaviour
         GameManager.RecvGameInfo += RecvGameInfo;
         GameManager.RecvGamePut += RecvGamePut;
         GameManager.RecvGameResult += RecvGameResult;
+
+        GameManager.IsGameSceneInit = true;
     }
 
     // Update is called once per frame
@@ -168,6 +172,11 @@ public class InGameSceenManager : MonoBehaviour
         #endregion
     }
 
+    private void OnDestroy()
+    {
+        GameManager.IsGameSceneInit = false;
+    }
+
     void CheckThrowStone()
     {
         if(MenuPanel.activeSelf == true)
@@ -188,51 +197,6 @@ public class InGameSceenManager : MonoBehaviour
             int yIdx = Mathf.RoundToInt((pos.y + StoneMaxY) / OmokPanPointDistance);
 
             SendGamePut(xIdx, yIdx);
-
-            /// TODO : 서버로 이전
-            //var point = OmokPanPoints[yIdx, xIdx];
-            //if (point.OmokStone != null)
-            //{
-            //    return;
-            //}
-
-            //GameObject stone;
-            //OmokPanPoint.PointType pointType;
-            //if (isBlack)
-            //{
-            //    stone = BlackStone;
-            //    pointType = OmokPanPoint.PointType.Black;
-            //}
-            //else
-            //{
-            //    stone = WhiteStone;
-            //    pointType = OmokPanPoint.PointType.White;
-            //}
-
-            //if(OmokRule.ConfirmThreeThree(OmokPanPoints, xIdx, yIdx, pointType) == true)
-            //{
-            //    Debug.Log("거긴 3 3입니다!");
-            //    return;
-            //}
-
-            //Vector3 stonePos = new Vector3((float)((xIdx - (OmokPanPointNumber / 2)) * OmokPanPointDistance), (float)((yIdx - (OmokPanPointNumber / 2)) * OmokPanPointDistance), -1);
-            //point.OmokStone = Instantiate(stone, stonePos, Quaternion.identity);
-            //point.Type = pointType;
-
-            //if (OmokRule.ConfirmOmok(OmokPanPoints, xIdx, yIdx, pointType) == true)
-            //{
-            //    Debug.Log("오목! 승리~!");
-            //    if(pointType == OmokPanPoint.PointType.Black)
-            //    {
-            //        NotifyResult("흑돌 승리!");
-            //    }
-            //    else
-            //    {
-            //        NotifyResult("백돌 승리!");
-            //    }
-            //}
-
-            //isBlack = !isBlack;
         }
     }
 
@@ -293,7 +257,6 @@ public class InGameSceenManager : MonoBehaviour
         point.OmokStone = Instantiate(putObject, stonePos, Quaternion.identity);
 
         TurnOut(IsMyTurn);
-        //point.Type = pointType;
     }
 
     public void ClickMenuButton()
@@ -304,7 +267,6 @@ public class InGameSceenManager : MonoBehaviour
     public void ClickMenuDisposeButton()
     {
         // TODO : 서버에 알림
-
         SceneManager.LoadScene(Common.LobbySceneName);
     }
 
@@ -315,8 +277,6 @@ public class InGameSceenManager : MonoBehaviour
 
     public void ClickToLobbyButton()
     {
-        // TODO : 서버에게 알리기
-
         SceneManager.LoadScene(Common.LobbySceneName);
     }
 
@@ -344,12 +304,12 @@ public class InGameSceenManager : MonoBehaviour
         if(isMyTurn == true)
         {
             TurnText.text = "내 턴";
-            TurnText.color = new Color(50f / 255f, 50f / 255f, 255f / 255f);
+            TurnText.color = MyTextColor;
         }
         else
         {
             TurnText.text = "상대 턴";
-            TurnText.color = new Color(255f / 255f, 50f / 255f, 50f / 255f);
+            TurnText.color = OpponentTextColor;
         }
     }
 
@@ -367,8 +327,14 @@ public class InGameSceenManager : MonoBehaviour
     void RecvGameInfo(object data)
     {
         var packetData = (PKTNTFGameInfo)data;
+        var result = packetData.Result;
+        Console.WriteLine($"GameInfo Result : [{result}]");
 
-        Console.WriteLine($"GameInfo Result : [{packetData.Result}]");
+        if(result != 0)
+        {
+            NotifyResult($"입장실패 ErrorCode : {result}");
+            return;
+        }
 
         OpponentID = packetData.OpponentID;
         IsBlack = packetData.IsBlack;
@@ -378,6 +344,9 @@ public class InGameSceenManager : MonoBehaviour
 
         OpponentIDText.text = OpponentID;
         MyIDText.text = GameManager.UserInfo.UserID;
+
+        MyGameRecordText.text = $"{GameManager.UserInfo.UserVictoryCount}승 {GameManager.UserInfo.UserDefeatCount}패";
+        OpponentGameRecordText.text = $"{packetData.OpponentGameRecord.Item1}승 {packetData.OpponentGameRecord.Item2}패";
 
         LoadingPanel.SetActive(false);
     }

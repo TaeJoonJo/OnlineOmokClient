@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour
 
     public static NetworkManager ClientNetworkManager;
 
+    public static bool IsGameSceneInit = false;
+
     public static UserInfo UserInfo;
 
     // Start is called before the first frame update
@@ -35,7 +37,7 @@ public class GameManager : MonoBehaviour
 
     public void Initalize()
     {
-        InitMsgPack();
+        //InitMsgPack();
 
         ClientNetworkManager = new NetworkManager();
 
@@ -121,14 +123,19 @@ public class GameManager : MonoBehaviour
                         Debug.Log("Recv NTFGameInfo");
                         var packet = MessagePackSerializer.Deserialize<GatewayServer.Packet.PKTNTFGameInfo>(packetData.PacketBody);
 
-                        //StartCoroutine(Sleep());
-                        Thread.Sleep(5000);
+                        bool isGameSceneInit = IsGameSceneInit;
+                        while (isGameSceneInit == false)
+                        {
+                            Thread.Sleep(5);
+                            isGameSceneInit = IsGameSceneInit;
+                        }
+
                         RecvGameInfo(packet);
                     } break;
                 case PacketDef.ClientGatePacketID.NTFGamePut:
                     {
                         var packet = MessagePackSerializer.Deserialize<GatewayServer.Packet.PKTNTFGamePut>(packetData.PacketBody);
-
+                        
                         RecvGamePut(packet);
                     } break;
                 case PacketDef.ClientGatePacketID.NTFGameResult:
@@ -140,15 +147,5 @@ public class GameManager : MonoBehaviour
             }
 
         }
-        
-        IEnumerator Sleep()
-        {
-            yield return new WaitForSeconds(5f);
-        }
-    }
-
-    IEnumerator Sleep()
-    {
-        yield return new WaitForSeconds(5f);
     }
 }

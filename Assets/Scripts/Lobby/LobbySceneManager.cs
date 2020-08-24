@@ -291,12 +291,11 @@ public class LobbySceneManager : MonoBehaviour
 
         if(result != 0)
         {
+            LoadingPanel.SetActive(false);
             NewInfo("방 입장에 실패하였습니다.");
             return;
         }
 
         SceneManager.LoadScene(Common.InGameSceneName);
-
-        //LoadingText.text = "다른 플레이어 기다리는 중...";
     }
 }

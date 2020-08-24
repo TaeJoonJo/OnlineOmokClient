@@ -180,7 +180,7 @@ public class LoginSceneManager : MonoBehaviour
 
     public void SendLobbyEnter()
     {
-        var request = new GatewayServer.Packet.PKTReqLobbyEnter() { AuthToken = GameManager.UserInfo.AuthToken };
+        var request = new GatewayServer.Packet.PKTReqLobbyEnter() {  };
 
         var body = MessagePackSerializer.Serialize(request);
         var packet = PacketDef.PKTHandleHelper.MakePacket((UInt16)PacketDef.ClientGatePacketID.ReqLobbyEnter, body);
@@ -207,12 +207,12 @@ public class LoginSceneManager : MonoBehaviour
         GameManager.UserInfo.UserVictoryCount = gameRecordResult.VictoryCount;
         GameManager.UserInfo.UserDefeatCount = gameRecordResult.DefeatCount;
 
-        var lobbyEnterResult = GameManager.ClientNetworkManager.UserLobbyEnterConfirm();
+        /// TODO
+        //var lobbyEnterResult = GameManager.ClientNetworkManager.UserLobbyEnterConfirm();
 
         SendLobbyEnter();
 
         GameManager.ClientNetworkManager.connectedIdx = GameManager.ClientNetworkManager.connectedTempIdx;
-
     }
 
     public void RecvLobbyEnterResult(object data)

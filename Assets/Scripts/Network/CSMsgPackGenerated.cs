@@ -49,23 +49,26 @@ namespace MessagePack.Resolvers
 
         static GeneratedResolverGetFormatterHelper()
         {
-            lookup = new global::System.Collections.Generic.Dictionary<Type, int>(15)
+            lookup = new global::System.Collections.Generic.Dictionary<Type, int>(18)
             {
                 { typeof(global::System.ValueTuple<int, int>), 0 },
-                { typeof(global::GatewayServer.Packet.PKTNTFGameInfo), 1 },
-                { typeof(global::GatewayServer.Packet.PKTNTFGamePut), 2 },
-                { typeof(global::GatewayServer.Packet.PKTNTFGameResult), 3 },
-                { typeof(global::GatewayServer.Packet.PKTNTFLobbyChat), 4 },
-                { typeof(global::GatewayServer.Packet.PKTNTFMatchingResult), 5 },
-                { typeof(global::GatewayServer.Packet.PKTReqGamePut), 6 },
-                { typeof(global::GatewayServer.Packet.PKTReqLobbyChat), 7 },
-                { typeof(global::GatewayServer.Packet.PKTReqLobbyEnter), 8 },
-                { typeof(global::GatewayServer.Packet.PKTReqLogin), 9 },
-                { typeof(global::GatewayServer.Packet.PKTReqMatching), 10 },
-                { typeof(global::GatewayServer.Packet.PKTReqRoomEnter), 11 },
-                { typeof(global::GatewayServer.Packet.PKTResLobbyEnter), 12 },
-                { typeof(global::GatewayServer.Packet.PKTResLogin), 13 },
-                { typeof(global::GatewayServer.Packet.PKTResRoomEnter), 14 },
+                { typeof(global::System.ValueTuple<ushort, ushort>), 1 },
+                { typeof(global::GatewayServer.Packet.PKTNTFGameInfo), 2 },
+                { typeof(global::GatewayServer.Packet.PKTNTFGamePut), 3 },
+                { typeof(global::GatewayServer.Packet.PKTNTFGameResult), 4 },
+                { typeof(global::GatewayServer.Packet.PKTNTFLobbyChat), 5 },
+                { typeof(global::GatewayServer.Packet.PKTNTFMatchingResult), 6 },
+                { typeof(global::GatewayServer.Packet.PKTReqGamePut), 7 },
+                { typeof(global::GatewayServer.Packet.PKTReqLobbyChat), 8 },
+                { typeof(global::GatewayServer.Packet.PKTReqLobbyEnter), 9 },
+                { typeof(global::GatewayServer.Packet.PKTReqLogin), 10 },
+                { typeof(global::GatewayServer.Packet.PKTReqMatching), 11 },
+                { typeof(global::GatewayServer.Packet.PKTReqRoomEnter), 12 },
+                { typeof(global::GatewayServer.Packet.PKTReqRoomLeave), 13 },
+                { typeof(global::GatewayServer.Packet.PKTResLobbyEnter), 14 },
+                { typeof(global::GatewayServer.Packet.PKTResLogin), 15 },
+                { typeof(global::GatewayServer.Packet.PKTResRoomEnter), 16 },
+                { typeof(global::GatewayServer.Packet.PKTResRoomLeave), 17 },
             };
         }
 
@@ -80,20 +83,23 @@ namespace MessagePack.Resolvers
             switch (key)
             {
                 case 0: return new global::MessagePack.Formatters.ValueTupleFormatter<int, int>();
-                case 1: return new MessagePack.Formatters.GatewayServer.Packet.PKTNTFGameInfoFormatter();
-                case 2: return new MessagePack.Formatters.GatewayServer.Packet.PKTNTFGamePutFormatter();
-                case 3: return new MessagePack.Formatters.GatewayServer.Packet.PKTNTFGameResultFormatter();
-                case 4: return new MessagePack.Formatters.GatewayServer.Packet.PKTNTFLobbyChatFormatter();
-                case 5: return new MessagePack.Formatters.GatewayServer.Packet.PKTNTFMatchingResultFormatter();
-                case 6: return new MessagePack.Formatters.GatewayServer.Packet.PKTReqGamePutFormatter();
-                case 7: return new MessagePack.Formatters.GatewayServer.Packet.PKTReqLobbyChatFormatter();
-                case 8: return new MessagePack.Formatters.GatewayServer.Packet.PKTReqLobbyEnterFormatter();
-                case 9: return new MessagePack.Formatters.GatewayServer.Packet.PKTReqLoginFormatter();
-                case 10: return new MessagePack.Formatters.GatewayServer.Packet.PKTReqMatchingFormatter();
-                case 11: return new MessagePack.Formatters.GatewayServer.Packet.PKTReqRoomEnterFormatter();
-                case 12: return new MessagePack.Formatters.GatewayServer.Packet.PKTResLobbyEnterFormatter();
-                case 13: return new MessagePack.Formatters.GatewayServer.Packet.PKTResLoginFormatter();
-                case 14: return new MessagePack.Formatters.GatewayServer.Packet.PKTResRoomEnterFormatter();
+                case 1: return new global::MessagePack.Formatters.ValueTupleFormatter<ushort, ushort>();
+                case 2: return new MessagePack.Formatters.GatewayServer.Packet.PKTNTFGameInfoFormatter();
+                case 3: return new MessagePack.Formatters.GatewayServer.Packet.PKTNTFGamePutFormatter();
+                case 4: return new MessagePack.Formatters.GatewayServer.Packet.PKTNTFGameResultFormatter();
+                case 5: return new MessagePack.Formatters.GatewayServer.Packet.PKTNTFLobbyChatFormatter();
+                case 6: return new MessagePack.Formatters.GatewayServer.Packet.PKTNTFMatchingResultFormatter();
+                case 7: return new MessagePack.Formatters.GatewayServer.Packet.PKTReqGamePutFormatter();
+                case 8: return new MessagePack.Formatters.GatewayServer.Packet.PKTReqLobbyChatFormatter();
+                case 9: return new MessagePack.Formatters.GatewayServer.Packet.PKTReqLobbyEnterFormatter();
+                case 10: return new MessagePack.Formatters.GatewayServer.Packet.PKTReqLoginFormatter();
+                case 11: return new MessagePack.Formatters.GatewayServer.Packet.PKTReqMatchingFormatter();
+                case 12: return new MessagePack.Formatters.GatewayServer.Packet.PKTReqRoomEnterFormatter();
+                case 13: return new MessagePack.Formatters.GatewayServer.Packet.PKTReqRoomLeaveFormatter();
+                case 14: return new MessagePack.Formatters.GatewayServer.Packet.PKTResLobbyEnterFormatter();
+                case 15: return new MessagePack.Formatters.GatewayServer.Packet.PKTResLoginFormatter();
+                case 16: return new MessagePack.Formatters.GatewayServer.Packet.PKTResRoomEnterFormatter();
+                case 17: return new MessagePack.Formatters.GatewayServer.Packet.PKTResRoomLeaveFormatter();
                 default: return null;
             }
         }
@@ -147,10 +153,11 @@ namespace MessagePack.Formatters.GatewayServer.Packet
             }
 
             IFormatterResolver formatterResolver = options.Resolver;
-            writer.WriteArrayHeader(3);
+            writer.WriteArrayHeader(4);
             writer.Write(value.Result);
             formatterResolver.GetFormatterWithVerify<string>().Serialize(ref writer, value.OpponentID, options);
             writer.Write(value.IsBlack);
+            formatterResolver.GetFormatterWithVerify<(ushort, ushort)>().Serialize(ref writer, value.OpponentGameRecord, options);
         }
 
         public global::GatewayServer.Packet.PKTNTFGameInfo Deserialize(ref MessagePackReader reader, global::MessagePack.MessagePackSerializerOptions options)
@@ -166,6 +173,7 @@ namespace MessagePack.Formatters.GatewayServer.Packet
             var __Result__ = default(ushort);
             var __OpponentID__ = default(string);
             var __IsBlack__ = default(bool);
+            var __OpponentGameRecord__ = default((ushort, ushort));
 
             for (int i = 0; i < length; i++)
             {
@@ -182,6 +190,9 @@ namespace MessagePack.Formatters.GatewayServer.Packet
                     case 2:
                         __IsBlack__ = reader.ReadBoolean();
                         break;
+                    case 3:
+                        __OpponentGameRecord__ = formatterResolver.GetFormatterWithVerify<(ushort, ushort)>().Deserialize(ref reader, options);
+                        break;
                     default:
                         reader.Skip();
                         break;
@@ -192,6 +203,7 @@ namespace MessagePack.Formatters.GatewayServer.Packet
             ____result.Result = __Result__;
             ____result.OpponentID = __OpponentID__;
             ____result.IsBlack = __IsBlack__;
+            ____result.OpponentGameRecord = __OpponentGameRecord__;
             reader.Depth--;
             return ____result;
         }
@@ -528,8 +540,9 @@ namespace MessagePack.Formatters.GatewayServer.Packet
             }
 
             IFormatterResolver formatterResolver = options.Resolver;
-            writer.WriteArrayHeader(1);
-            formatterResolver.GetFormatterWithVerify<string>().Serialize(ref writer, value.AuthToken, options);
+            writer.WriteArrayHeader(2);
+            writer.Write(value.LobbyNumber);
+            writer.Write(value.LobbyServerIdx);
         }
 
         public global::GatewayServer.Packet.PKTReqLobbyEnter Deserialize(ref MessagePackReader reader, global::MessagePack.MessagePackSerializerOptions options)
@@ -542,7 +555,8 @@ namespace MessagePack.Formatters.GatewayServer.Packet
             options.Security.DepthStep(ref reader);
             IFormatterResolver formatterResolver = options.Resolver;
             var length = reader.ReadArrayHeader();
-            var __AuthToken__ = default(string);
+            var __LobbyNumber__ = default(ushort);
+            var __LobbyServerIdx__ = default(ushort);
 
             for (int i = 0; i < length; i++)
             {
@@ -551,7 +565,10 @@ namespace MessagePack.Formatters.GatewayServer.Packet
                 switch (key)
                 {
                     case 0:
-                        __AuthToken__ = formatterResolver.GetFormatterWithVerify<string>().Deserialize(ref reader, options);
+                        __LobbyNumber__ = reader.ReadUInt16();
+                        break;
+                    case 1:
+                        __LobbyServerIdx__ = reader.ReadUInt16();
                         break;
                     default:
                         reader.Skip();
@@ -560,7 +577,8 @@ namespace MessagePack.Formatters.GatewayServer.Packet
             }
 
             var ____result = new global::GatewayServer.Packet.PKTReqLobbyEnter();
-            ____result.AuthToken = __AuthToken__;
+            ____result.LobbyNumber = __LobbyNumber__;
+            ____result.LobbyServerIdx = __LobbyServerIdx__;
             reader.Depth--;
             return ____result;
         }
@@ -693,8 +711,7 @@ namespace MessagePack.Formatters.GatewayServer.Packet
             }
 
             IFormatterResolver formatterResolver = options.Resolver;
-            writer.WriteArrayHeader(1);
-            formatterResolver.GetFormatterWithVerify<string>().Serialize(ref writer, value.AuthToken, options);
+            writer.WriteArrayHeader(0);
         }
 
         public global::GatewayServer.Packet.PKTReqRoomEnter Deserialize(ref MessagePackReader reader, global::MessagePack.MessagePackSerializerOptions options)
@@ -707,7 +724,6 @@ namespace MessagePack.Formatters.GatewayServer.Packet
             options.Security.DepthStep(ref reader);
             IFormatterResolver formatterResolver = options.Resolver;
             var length = reader.ReadArrayHeader();
-            var __AuthToken__ = default(string);
 
             for (int i = 0; i < length; i++)
             {
@@ -715,9 +731,6 @@ namespace MessagePack.Formatters.GatewayServer.Packet
 
                 switch (key)
                 {
-                    case 0:
-                        __AuthToken__ = formatterResolver.GetFormatterWithVerify<string>().Deserialize(ref reader, options);
-                        break;
                     default:
                         reader.Skip();
                         break;
@@ -725,7 +738,51 @@ namespace MessagePack.Formatters.GatewayServer.Packet
             }
 
             var ____result = new global::GatewayServer.Packet.PKTReqRoomEnter();
-            ____result.AuthToken = __AuthToken__;
+            reader.Depth--;
+            return ____result;
+        }
+    }
+
+    public sealed class PKTReqRoomLeaveFormatter : global::MessagePack.Formatters.IMessagePackFormatter<global::GatewayServer.Packet.PKTReqRoomLeave>
+    {
+
+
+        public void Serialize(ref MessagePackWriter writer, global::GatewayServer.Packet.PKTReqRoomLeave value, global::MessagePack.MessagePackSerializerOptions options)
+        {
+            if (value == null)
+            {
+                writer.WriteNil();
+                return;
+            }
+
+            IFormatterResolver formatterResolver = options.Resolver;
+            writer.WriteArrayHeader(0);
+        }
+
+        public global::GatewayServer.Packet.PKTReqRoomLeave Deserialize(ref MessagePackReader reader, global::MessagePack.MessagePackSerializerOptions options)
+        {
+            if (reader.TryReadNil())
+            {
+                return null;
+            }
+
+            options.Security.DepthStep(ref reader);
+            IFormatterResolver formatterResolver = options.Resolver;
+            var length = reader.ReadArrayHeader();
+
+            for (int i = 0; i < length; i++)
+            {
+                var key = i;
+
+                switch (key)
+                {
+                    default:
+                        reader.Skip();
+                        break;
+                }
+            }
+
+            var ____result = new global::GatewayServer.Packet.PKTReqRoomLeave();
             reader.Depth--;
             return ____result;
         }
@@ -878,6 +935,57 @@ namespace MessagePack.Formatters.GatewayServer.Packet
             }
 
             var ____result = new global::GatewayServer.Packet.PKTResRoomEnter();
+            ____result.Result = __Result__;
+            reader.Depth--;
+            return ____result;
+        }
+    }
+
+    public sealed class PKTResRoomLeaveFormatter : global::MessagePack.Formatters.IMessagePackFormatter<global::GatewayServer.Packet.PKTResRoomLeave>
+    {
+
+
+        public void Serialize(ref MessagePackWriter writer, global::GatewayServer.Packet.PKTResRoomLeave value, global::MessagePack.MessagePackSerializerOptions options)
+        {
+            if (value == null)
+            {
+                writer.WriteNil();
+                return;
+            }
+
+            IFormatterResolver formatterResolver = options.Resolver;
+            writer.WriteArrayHeader(1);
+            writer.Write(value.Result);
+        }
+
+        public global::GatewayServer.Packet.PKTResRoomLeave Deserialize(ref MessagePackReader reader, global::MessagePack.MessagePackSerializerOptions options)
+        {
+            if (reader.TryReadNil())
+            {
+                return null;
+            }
+
+            options.Security.DepthStep(ref reader);
+            IFormatterResolver formatterResolver = options.Resolver;
+            var length = reader.ReadArrayHeader();
+            var __Result__ = default(ushort);
+
+            for (int i = 0; i < length; i++)
+            {
+                var key = i;
+
+                switch (key)
+                {
+                    case 0:
+                        __Result__ = reader.ReadUInt16();
+                        break;
+                    default:
+                        reader.Skip();
+                        break;
+                }
+            }
+
+            var ____result = new global::GatewayServer.Packet.PKTResRoomLeave();
             ____result.Result = __Result__;
             reader.Depth--;
             return ____result;

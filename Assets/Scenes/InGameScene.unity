@@ -656,7 +656,7 @@ RectTransform:
   - {fileID: 2013603139}
   - {fileID: 800048878}
   m_Father: {fileID: 1032082225}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -872,6 +872,8 @@ MonoBehaviour:
   InfoText: {fileID: 1556499894}
   OpponentIDText: {fileID: 2021231301}
   MyIDText: {fileID: 2013603141}
+  MyGameRecordText: {fileID: 800048879}
+  OpponentGameRecordText: {fileID: 1617865756}
   TurnText: {fileID: 1222278484}
   AppearEffectObject: {fileID: 2007284963}
 --- !u!1 &800048877
@@ -886,7 +888,7 @@ GameObject:
   - component: {fileID: 800048880}
   - component: {fileID: 800048879}
   m_Layer: 5
-  m_Name: Text (1)
+  m_Name: MyGameRecordText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1123,12 +1125,12 @@ RectTransform:
   m_Children:
   - {fileID: 1989208380}
   - {fileID: 981281065}
-  - {fileID: 1454642718}
   - {fileID: 1506030648}
   - {fileID: 634260116}
   - {fileID: 1222278486}
   - {fileID: 1589608497}
   - {fileID: 1342412148}
+  - {fileID: 1454642718}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1522,7 +1524,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1032082225}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1546,7 +1548,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1342412148
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1561,7 +1563,7 @@ RectTransform:
   - {fileID: 1063890630}
   - {fileID: 1168124310}
   m_Father: {fileID: 1032082225}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1796,7 +1798,7 @@ RectTransform:
   - {fileID: 774536075}
   - {fileID: 1868325313}
   m_Father: {fileID: 1032082225}
-  m_RootOrder: 2
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1873,7 +1875,7 @@ RectTransform:
   - {fileID: 2021231299}
   - {fileID: 1617865755}
   m_Father: {fileID: 1032082225}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -2029,7 +2031,7 @@ RectTransform:
   - {fileID: 1556499892}
   - {fileID: 1910188098}
   m_Father: {fileID: 1032082225}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2086,7 +2088,7 @@ GameObject:
   - component: {fileID: 1617865757}
   - component: {fileID: 1617865756}
   m_Layer: 5
-  m_Name: Text
+  m_Name: OpponentGameRecordText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

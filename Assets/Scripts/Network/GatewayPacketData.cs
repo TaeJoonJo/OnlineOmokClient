@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 namespace GatewayServer.Packet
 {
-
     #region Client-GatewayServer
 
     [MessagePackObject]
@@ -29,7 +28,9 @@ namespace GatewayServer.Packet
     public class PKTReqLobbyEnter
     {
         [Key(0)]
-        public String AuthToken;
+        public UInt16 LobbyNumber;
+        [Key(1)]
+        public UInt16 LobbyServerIdx;
     }
 
     [MessagePackObject]
@@ -71,12 +72,24 @@ namespace GatewayServer.Packet
     [MessagePackObject]
     public class PKTReqRoomEnter
     {
-        [Key(0)]
-        public String AuthToken;
+
     }
 
     [MessagePackObject]
     public class PKTResRoomEnter
+    {
+        [Key(0)]
+        public UInt16 Result;
+    }
+
+    [MessagePackObject]
+    public class PKTReqRoomLeave
+    {
+
+    }
+
+    [MessagePackObject]
+    public class PKTResRoomLeave
     {
         [Key(0)]
         public UInt16 Result;
@@ -91,6 +104,8 @@ namespace GatewayServer.Packet
         public String OpponentID;
         [Key(2)]
         public bool IsBlack;
+        [Key(3)]
+        public (UInt16, UInt16) OpponentGameRecord;
     }
 
     [MessagePackObject]
@@ -119,5 +134,4 @@ namespace GatewayServer.Packet
     }
 
     #endregion
-
 }
