@@ -85,6 +85,13 @@ public class NetworkManager
         return reply.Message;
 
     }
+
+    public UserLobbyEnterResult UserLobbyEnterConfirm()
+    {
+        var reply = APIConnection.UserLobbyEnter(new Empty { });
+        return reply;
+    }
+
     public int CreateAccountConfirm(string id, string pw, string nickName, int sex, int age)
     {
         var reply = APIConnection.CreateAccount(new User

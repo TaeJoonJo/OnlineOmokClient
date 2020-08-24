@@ -22,6 +22,8 @@ namespace APIServer {
     static readonly grpc::Marshaller<global::APIServer.FriendInfo> __Marshaller_APIFunc_FriendInfo = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::APIServer.FriendInfo.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::APIServer.FriendList> __Marshaller_APIFunc_FriendList = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::APIServer.FriendList.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::APIServer.GameRecordResult> __Marshaller_APIFunc_GameRecordResult = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::APIServer.GameRecordResult.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::APIServer.Empty> __Marshaller_APIFunc_Empty = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::APIServer.Empty.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::APIServer.UserLobbyEnterResult> __Marshaller_APIFunc_UserLobbyEnterResult = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::APIServer.UserLobbyEnterResult.Parser.ParseFrom);
 
     static readonly grpc::Method<global::APIServer.User, global::APIServer.Confirm> __Method_CreateAccount = new grpc::Method<global::APIServer.User, global::APIServer.Confirm>(
         grpc::MethodType.Unary,
@@ -85,6 +87,13 @@ namespace APIServer {
         "UserGameRecord",
         __Marshaller_APIFunc_Account,
         __Marshaller_APIFunc_GameRecordResult);
+
+    static readonly grpc::Method<global::APIServer.Empty, global::APIServer.UserLobbyEnterResult> __Method_UserLobbyEnter = new grpc::Method<global::APIServer.Empty, global::APIServer.UserLobbyEnterResult>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "UserLobbyEnter",
+        __Marshaller_APIFunc_Empty,
+        __Marshaller_APIFunc_UserLobbyEnterResult);
 
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -258,6 +267,22 @@ namespace APIServer {
       public virtual grpc::AsyncUnaryCall<global::APIServer.GameRecordResult> UserGameRecordAsync(global::APIServer.Account request, grpc::CallOptions options)
       {
         return CallInvoker.AsyncUnaryCall(__Method_UserGameRecord, null, options, request);
+      }
+      public virtual global::APIServer.UserLobbyEnterResult UserLobbyEnter(global::APIServer.Empty request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return UserLobbyEnter(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::APIServer.UserLobbyEnterResult UserLobbyEnter(global::APIServer.Empty request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_UserLobbyEnter, null, options, request);
+      }
+      public virtual grpc::AsyncUnaryCall<global::APIServer.UserLobbyEnterResult> UserLobbyEnterAsync(global::APIServer.Empty request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return UserLobbyEnterAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual grpc::AsyncUnaryCall<global::APIServer.UserLobbyEnterResult> UserLobbyEnterAsync(global::APIServer.Empty request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_UserLobbyEnter, null, options, request);
       }
       /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
       protected override APIFunctionClient NewInstance(ClientBaseConfiguration configuration)

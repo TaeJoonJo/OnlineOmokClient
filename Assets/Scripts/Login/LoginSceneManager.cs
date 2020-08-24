@@ -202,17 +202,17 @@ public class LoginSceneManager : MonoBehaviour
 
         GameManager.UserInfo.UserID = IDInputField.text;
         
-        var temp = GameManager.ClientNetworkManager.GetGameRecordConfirm(GameManager.ClientNetworkManager.connectedTempIdx);
+        var gameRecordResult = GameManager.ClientNetworkManager.GetGameRecordConfirm(GameManager.ClientNetworkManager.connectedTempIdx);
 
-        GameManager.UserInfo.UserVictoryCount = temp.VictoryCount;
-        GameManager.UserInfo.UserDefeatCount = temp.DefeatCount;
+        GameManager.UserInfo.UserVictoryCount = gameRecordResult.VictoryCount;
+        GameManager.UserInfo.UserDefeatCount = gameRecordResult.DefeatCount;
 
-        //SceneManager.LoadScene(Common.LobbySceneName);
+        var lobbyEnterResult = GameManager.ClientNetworkManager.UserLobbyEnterConfirm();
+
         SendLobbyEnter();
 
         GameManager.ClientNetworkManager.connectedIdx = GameManager.ClientNetworkManager.connectedTempIdx;
-   //   GameManager.ClientNetworkManager.GetMail(GameManager.ClientNetworkManager.connectedIdx);
-        //SceneManager.LoadScene(Common.LobbySceneName);
+
     }
 
     public void RecvLobbyEnterResult(object data)
