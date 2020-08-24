@@ -4,6 +4,7 @@ using MessagePack.Resolvers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 
@@ -120,7 +121,8 @@ public class GameManager : MonoBehaviour
                         Debug.Log("Recv NTFGameInfo");
                         var packet = MessagePackSerializer.Deserialize<GatewayServer.Packet.PKTNTFGameInfo>(packetData.PacketBody);
 
-                        StartCoroutine(Sleep());
+                        //StartCoroutine(Sleep());
+                        Thread.Sleep(5000);
                         RecvGameInfo(packet);
                     } break;
                 case PacketDef.ClientGatePacketID.NTFGamePut:

@@ -205,7 +205,7 @@ public class LoginSceneManager : MonoBehaviour
         var temp = GameManager.ClientNetworkManager.GetGameRecordConfirm(GameManager.ClientNetworkManager.connectedTempIdx);
 
         GameManager.UserInfo.UserVictoryCount = temp.VictoryCount;
-        GameManager.UserInfo.UserDefeatCount = temp.VictoryCount;
+        GameManager.UserInfo.UserDefeatCount = temp.DefeatCount;
 
         //SceneManager.LoadScene(Common.LobbySceneName);
         SendLobbyEnter();

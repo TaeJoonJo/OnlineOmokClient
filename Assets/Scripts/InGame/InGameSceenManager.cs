@@ -427,12 +427,16 @@ public class InGameSceenManager : MonoBehaviour
             case 3035:  // Black Win
                 {
                     NotifyResult("흑돌이 승리하였습니다!");
+                    if (IsBlack) GameManager.UserInfo.UserVictoryCount++;
+                    else GameManager.UserInfo.UserDefeatCount++;
+
                 } break;
             case 3036:  // White Win
                 {
                     NotifyResult("백돌이 승리하였습니다!");
+                    if (IsBlack) GameManager.UserInfo.UserDefeatCount++;
+                    else GameManager.UserInfo.UserVictoryCount++;
                 } break;
         }
-        
     }
 }
